@@ -19,10 +19,12 @@ package com.example.guestbook;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.googlecode.objectify.ObjectifyService;
 
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,11 +44,36 @@ public class GuestbookServlet extends HttpServlet {
       User currentUser = userService.getCurrentUser();
 
       if (currentUser != null) {
-        resp.setContentType("text/plain");
-        resp.getWriter().println("Hello, " + currentUser.getNickname());
+        // check if the user has regieter in a group
+        String groupName = req.getParameter("selectGroup");
+        if(groupName == null)
+          return;
+        else{
+          Student student = new Student(currentUser.getNickname(), groupName);
+          ObjectifyService.ofy().save().entity(student).now();
+        }
+        resp.sendRedirect("/guestbook.jsp");
       } else {
         resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
       }
+    }
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    UserService userService = UserServiceFactory.getUserService();
+    User currentUser = userService.getCurrentUser();
+
+    if (currentUser != null) {
+      // check if the user has regieter in a group
+      String groupName = req.getParameter("selectGroup");
+      if(groupName == null)
+        return;
+      else{
+        Student student = new Student(currentUser.getNickname(), groupName);
+        ObjectifyService.ofy().save().entity(student).now();
+      }
+      resp.sendRedirect("/guestbook.jsp");
     }
   }
 }
