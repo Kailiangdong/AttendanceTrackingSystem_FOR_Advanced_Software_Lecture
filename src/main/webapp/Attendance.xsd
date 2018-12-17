@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="attendance_id" type="xs:string"/>
+<xs:element name="student_id" type="xs:string"/>
+<xs:element name="tutorial_group_id" type="xs:string"/>
+<xs:element name="week_id" type="xs:string"/>
+<xs:element name="presented" type="xs:boolean"/>
+
+<xs:element name="attendance">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element ref="attendance_id"/>
+            <xs:element ref="student_id"/>
+            <xs:element ref="tutorial_group_id"/>
+            <xs:element ref="week_id"/>
+            <xs:element ref="presented"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
+
+<xs:element name="guestbook">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element ref="attendance" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
+
+</xs:schema>

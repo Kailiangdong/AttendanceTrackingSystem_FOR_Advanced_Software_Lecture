@@ -13,11 +13,14 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css"/>
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"/>
+    <script src="scripts/func.js"></script>
 </head>
 
 <body>
 
 <%
+    //
     String guestbookName = request.getParameter("guestbookName");
     if (guestbookName == null) {
         guestbookName = "default";
@@ -41,11 +44,11 @@
         }
         Student student = q.first().now();
         //Student student = ObjectifyService.ofy().load().type(Student.class).filter("nickname ==", user.getNickname()).first().now();
-        if(student == null){
+        
 %>
 <p>please select your current group:</p>
-<form action="/guestbook" method="post">
-    <div><select name="selectGroup" onchange="" style="width:200px; margin-left:32px; ">
+<form>
+    <div><select id="select" name="selectGroup" onchange="" style="width:200px; margin-left:32px; ">
         <option selected>Please select your group</option>
         <option value="Group 1">Group 1</option>
         <option value="Group 2">Group 2</option>
@@ -54,18 +57,10 @@
         <option value="Group 5">Group 5</option>
         <option value="Group 6">Group 6</option>
     </select>
-    <input type="submit" value="select"/>
+    <input type="submit" value="select" onclick="sendRest()"/>
     </div>
 </form>
-<%
-        } else {
-            pageContext.setAttribute("stud_group", student.groupname);
-            pageContext.setAttribute("group_info", Group.getGroupInfos(student.groupname));
-%>
-<p>you are signed in to ${fn:escapeXml(stud_group)}, this is your time table:</p>
-${group_info}
 <%           
-        }
 } else {
 %>
 <p>Hello!
