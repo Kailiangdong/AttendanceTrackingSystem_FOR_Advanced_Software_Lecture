@@ -119,8 +119,8 @@
                 <version>3.1</version>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -128,13 +128,15 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
-                    <archiveClasses>true</archiveClasses>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <!-- <archiveClasses>true</archiveClasses> -->
                     <webResources>
                         <!-- in order to interpolate version from pom into appengine-web.xml -->
                         <resource>
-                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                            <directory>${basedir}/target/angular/testapp/dist/testapp</directory>
+                            <!-- <directory>${basedir}/src/main/webapp/WEB-INF</directory>
                             <filtering>true</filtering>
-                            <targetPath>WEB-INF</targetPath>
+                            <targetPath>WEB-INF</targetPath> -->
                         </resource>
                     </webResources>
                 </configuration>
@@ -147,8 +149,12 @@
                 <configuration>
                     <enableJarClasses>false</enableJarClasses>
                     <!-- Comment in the below snippet to bind to all IPs instead of just localhost -->
-                    <address>0.0.0.0</address>
-                    <port>8080</port>
+                    <devserver.address>0.0.0.0</devserver.address>
+                    <devserver.port>8080</devserver.port>
+                    <deploy.appId>my-first-project-222110</deploy.appId>
+                    <version>1</version>
+                    <deploy.fullScanSeconds>1</deploy.fullScanSeconds>
+                    <deploy.retainUploadDir>true</deploy.retainUploadDir>
                     <!-- Comment in the below snippet to enable local debugging with a remote debugger
                          like those included with Eclipse or IntelliJ -->
                     <!-- jvmFlags>
@@ -156,6 +162,97 @@
                     </jvmFlags -->
                 </configuration>
             </plugin>
+
+            <!-- include directory for clean-->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                    <filesets>
+                        <fileset>
+                            <directory>src/main/angular/testapp/dist</directory>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>src/main/angular/testapp/node_modules</directory>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+             <!-- Copy angular distribution to target directory-->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-angular-dir</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/angular</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/angular</directory>
+                                    <includes>
+                                        <include>testapp/**/*.*</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Angular dependencies and compilation -->
+            <plugin>
+                <artifactId>exec-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <version>1.6.0</version>
+                <executions>
+                    <!-- Call npm install to resolve the dependencies of the angular UI in package.json -->
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
+                            <workingDirectory>${basedir}/target/angular/testapp</workingDirectory>
+                            <target>
+                                <echo message="Npm install" />
+                            </target>
+                        </configuration>
+                    </execution>
+
+                    <!-- Build angular UI with Angular CLI -->
+                    <execution>
+                        <id>angular-cli build</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <executable>ng</executable>
+                            <arguments>
+                                <argument>build</argument>
+                                <!-- <argument> base-href=/ng/</argument> -->
+                            </arguments>
+                            <workingDirectory>${basedir}/target/angular/testapp</workingDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
         </plugins>
     </build>
 </project>
