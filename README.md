@@ -5,7 +5,7 @@ ASE Project
 ## API Definitions
 ### Register
 using POST method\
-https://my-first-project-222110.appspot.com/rest/register\
+https://my-first-project-222110.appspot.com/rest/register  
 POST element:\
 email=your_email_address&\
 password=your_password
@@ -21,7 +21,7 @@ Response
 
 ### Login
 using POST method\
-https://my-first-project-222110.appspot.com/rest/login\
+https://my-first-project-222110.appspot.com/rest/login  
 POST element:\
 email=your_email_address&\
 password=your_password
@@ -37,7 +37,7 @@ Response
 
 ### Show all attendance log
 using POST method\
-https://my-first-project-222110.appspot.com/rest/attendance/log\
+https://my-first-project-222110.appspot.com/rest/attendance/log  
 POST element:\
 group=your_group_id\
 session=session_id
@@ -65,7 +65,8 @@ Response
 
 ### Get token from server(JSON format):
 using GET method\
-https://my-first-project-222110.appspot.com/rest/attendance/get/json?student_id=your_student_id&week_num=this_week_number\
+https://my-first-project-222110.appspot.com/rest/attendance/get/json?student_id=your_student_id&week_num=this_week_number
+
 Response
 
 ```JSON
@@ -77,7 +78,8 @@ Response
 
 ### Get token from server(XML format):
 using GET method\
-~~https://my-first-project-222110.appspot.com/rest/attendance/get/xml?student_id=your_student_id&week_num=this_week_number~~\
+~~https://my-first-project-222110.appspot.com/rest/attendance/get/xml?student_id=your_student_id&week_num=this_week_number ~~
+
 Response:
 ```XML
 <authentification>
@@ -90,7 +92,7 @@ Response:
 Only tutors are allowed to use this endpoint(credential id will be checked)
 
 Using POST method:\
-https://my-first-project-222110.appspot.com/rest/attendance/record/json\
+https://my-first-project-222110.appspot.com/rest/attendance/record/json  
 POST element:\
 attendance_id=stud_attendance_id&\
 student_id=stud_student_id&\
@@ -109,7 +111,7 @@ Response:
 
 ### Record attendance TUTOR(XML format):
 Using POST method:\
-https://my-first-project-222110.appspot.com/rest/attendance/record/xml\
+https://my-first-project-222110.appspot.com/rest/attendance/record/xml  
 POST element:\
 ~~attendance_id=stud_attendance_id&\
 student_id=stud_student_id&\
@@ -128,7 +130,7 @@ Response:
 
 ### Record attendance STUDENT(JSON format):
 Using POST method:\
-https://my-first-project-222110.appspot.com/rest/attendance/post/json\
+https://my-first-project-222110.appspot.com/rest/attendance/post/json  
 POST element:\
 student_id=your_student_id&\
 token=your_token
@@ -142,7 +144,7 @@ Response:
 ```
 ### Record attendance TUTOR(XML format):
 Using POST method:\
-https://my-first-project-222110.appspot.com/rest/attendance/post/xml\
+https://my-first-project-222110.appspot.com/rest/attendance/post/xml  
 POST element:\
 ~~student_id=your_student_id&\
 token=your_token~~
@@ -157,7 +159,8 @@ Response:
 
 ### Cloud messaging for android
 using GET method:\
-https://my-first-project-222110.appspot.com/rest/message?student_id=your_student_id\
+https://my-first-project-222110.appspot.com/rest/message?student_id=your_student_id
+
 Response
 ```JSON
 {
@@ -179,7 +182,7 @@ or
 }
 ```
 
-### Validation of missed attendance
+### Validate missing attendance
 using GET method:\
 https://my-first-project-222110.appspot.com/rest/validate?validate_id=validate_id&student_id=this_student_id&result=true\false
 
