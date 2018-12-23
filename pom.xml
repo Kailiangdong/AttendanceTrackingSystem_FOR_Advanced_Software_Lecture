@@ -133,7 +133,7 @@
                     <webResources>
                         <!-- in order to interpolate version from pom into appengine-web.xml -->
                         <resource>
-                            <directory>${basedir}/target/angular/testapp/dist/testapp</directory>
+                            <directory>${basedir}/target/frontend/dist/frontend</directory>
                             <!-- <directory>${basedir}/src/main/webapp/WEB-INF</directory>
                             <filtering>true</filtering>
                             <targetPath>WEB-INF</targetPath> -->
@@ -171,11 +171,11 @@
                     <failOnError>false</failOnError>
                     <filesets>
                         <fileset>
-                            <directory>src/main/angular/testapp/dist</directory>
+                            <directory>src/main/frontend/dist</directory>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
                         <fileset>
-                            <directory>src/main/angular/testapp/node_modules</directory>
+                            <directory>src/main/frontend/node_modules</directory>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
                     </filesets>
@@ -194,12 +194,12 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/angular</outputDirectory>
+                            <outputDirectory>${basedir}/target</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>src/main/angular</directory>
+                                    <directory>src/main</directory>
                                     <includes>
-                                        <include>testapp/**/*.*</include>
+                                        <include>frontend/**/*.*</include>
                                     </includes>
                                 </resource>
                             </resources>
@@ -226,7 +226,7 @@
                             <arguments>
                                 <argument>install</argument>
                             </arguments>
-                            <workingDirectory>${basedir}/target/angular/testapp</workingDirectory>
+                            <workingDirectory>${basedir}/target/frontend</workingDirectory>
                             <target>
                                 <echo message="Npm install" />
                             </target>
@@ -247,7 +247,7 @@
                                 <argument>--prod</argument>
                                 <!-- <argument> base-href=/ng/</argument> -->
                             </arguments>
-                            <workingDirectory>${basedir}/target/angular/testapp</workingDirectory>
+                            <workingDirectory>${basedir}/target/frontend</workingDirectory>
                         </configuration>
                     </execution>
                 </executions>
