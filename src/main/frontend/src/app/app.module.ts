@@ -12,8 +12,9 @@ import { TutorhomeComponent } from './tutorhome/tutorhome.component';
 import { TutorlistComponent } from './tutorlist/tutorlist.component';
 import { TutoreditorComponent } from './tutoreditor/tutoreditor.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule, MatIconModule, MatToolbarModule} from '@angular/material';
-
+import {MatButtonModule, MatSelectModule,MatIconModule, MatToolbarModule, MatOptionModule} from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +34,10 @@ import {MatButtonModule, MatIconModule, MatToolbarModule} from '@angular/materia
     AppRoutingModule,
     MatButtonModule,
     MatIconModule, 
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
     MatToolbarModule,
   ],
   providers: [],

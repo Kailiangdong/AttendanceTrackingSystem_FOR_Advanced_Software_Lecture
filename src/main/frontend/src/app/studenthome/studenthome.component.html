@@ -1,3 +1,29 @@
-<p>
-  studenthome works!
-</p>
+<div>
+  <p>
+    Hello! Kailiang Dong
+  </p>
+  <p>
+    please select your group
+  </p>
+  <div>
+    <mat-form-field>
+      <mat-label>Select your group</mat-label>
+      <select matNativeControl >
+          <option value="" disabled selected></option>
+          <option value="Group1">Group1</option>
+          <option value="Group2">Group2</option>
+          <option value="Group3">Group3</option>
+          <option value="Group4">Group4</option>
+          <option value="Group5">Group5</option>
+      </select>
+    </mat-form-field>
+    <button>Submit</button>
+  </div>
+  <div>
+    <button routerLink="/studentlist" >My attendance</button>
+  </div>
+  <div>
+    <button>Generate Qr code</button>
+  </div>
+
+</div>
