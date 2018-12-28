@@ -1,17 +1,39 @@
-<!-- main app container -->
-<div class="jumbotron">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 offset-sm-3">
-                <router-outlet></router-outlet>
+<body class="pageBody" id="profileBody">
+    <!--This is the "Menu Toolbar" of the BLOGX Canvas WebApp-->
+    <mat-toolbar color="primary" id="toolbar">
+        <!--Below is the left Menu icon, consisting of the "BLOGX" logo and the "menu" button-->
+        <div class="menubanner" id="menubanner">
+            <button mat-icon-button id="dash-home" routerLink="/login">
+                <mat-icon>home</mat-icon>
+            </button>
+            <span routerLink="/login">HOME</span>
+        </div>
+        <!--Below is a spacer for nice appearance reasons-->
+        <span class="toolbarspacer"></span>
+
+        <div  class="login-banner">
+            <button i18n mat-button>
+                <mat-icon>power_settings_new</mat-icon>
+                <span i18n >Logout</span>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <!-- main app container -->
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 offset-sm-3">
+                    <router-outlet></router-outlet>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- credits -->
-<div class="text-center">
-    <p>
-        <a href="http://jasonwatmore.com/post/2018/05/16/angular-6-user-registration-and-login-example-tutorial" target="_top">ASE TEAM 1</a>
-    </p>
-</div>
+    <!-- credits -->
+    <div class="text-center">
+        <p>
+            <a href="http://jasonwatmore.com/post/2018/05/16/angular-6-user-registration-and-login-example-tutorial" target="_top">ASE TEAM 1</a>
+        </p>
+    </div>
+</body>
