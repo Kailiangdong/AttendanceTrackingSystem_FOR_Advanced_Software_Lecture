@@ -6,15 +6,17 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { StudenthomeComponent } from './studenthome/studenthome.component';
+import { StudenthomeComponent,DialogOverviewExampleDialog } from './studenthome/studenthome.component';
 import { StudentlistComponent } from './studentlist/studentlist.component';
 import { TutorhomeComponent } from './tutorhome/tutorhome.component';
 import { TutorlistComponent } from './tutorlist/tutorlist.component';
 import { TutoreditorComponent } from './tutoreditor/tutoreditor.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule, MatSelectModule,MatIconModule, MatToolbarModule, MatOptionModule} from '@angular/material';
+import {MatButtonModule, MatSelectModule,MatIconModule, MatToolbarModule, MatOptionModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { QRCodeModule } from 'angularx-qrcode';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,9 @@ import {MatInputModule} from '@angular/material/input';
     TutorhomeComponent,
     TutorlistComponent,
     TutoreditorComponent,
+    DialogOverviewExampleDialog
   ],
+  entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -39,8 +43,12 @@ import {MatInputModule} from '@angular/material/input';
     MatSelectModule,
     MatOptionModule,
     MatToolbarModule,
+    MatDialogModule,
+    QRCodeModule,
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
