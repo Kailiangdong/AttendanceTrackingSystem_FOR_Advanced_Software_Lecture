@@ -7,15 +7,20 @@ ASE Project
 using POST method\
 https://my-first-project-222110.appspot.com/rest/register\
 POST element:\
+first_name=your_first_name&\
+last_name=your_last_name&\
 email=your_email_address&\
-password=your_password
+password=your_password&\
+group_name=[1-6]&\
+is_tutor=false
 
 Response
 
 ```JSON
 {
 	"status" : "SUCCESS",
-	"session_id" : "1234567891011"
+    "id" : "1234567891011",
+    "reason" : ""
 }
 ```
 
@@ -31,7 +36,16 @@ Response
 ```JSON
 {
 	"status" : "SUCCESS",
-	"session_id" : "1234567891011"
+    "id" : "1234567891011",
+    "is_tutor" : "false",
+    "reason" : ""
+}
+```
+or
+```JSON
+{
+	"status" : "ERROR",
+    "reason" : "Either email or password is incorrect"
 }
 ```
 
@@ -140,7 +154,7 @@ Response:
     "reason" : "Token used before",
 }
 ```
-### Record attendance TUTOR(XML format):
+### Record attendance STUDENT(XML format):
 Using POST method:\
 https://my-first-project-222110.appspot.com/rest/attendance/post/xml\
 POST element:\
