@@ -28,20 +28,40 @@ public class MessageResource extends ServerResource{
         }
         int group = s.getGroup();
         List<Attendance> attendances = ObjectifyService.ofy().load().type(Attendance.class).filter("tutorial_group_id", "" + group).filter("date >", date).list();
+        if(!attendances.isEmpty()){
+            JsonArray jsonArray = new JsonArray();
+            for(Attendance a : attendances){
+                JsonObject jsonObject2 = new JsonObject();
+                jsonObject2.addProperty("student_id", a.getStudentId());
+                jsonObject2.addProperty("group", a.getGroupId());
+                jsonObject2.addProperty("week", a.getWeek());
+                jsonArray.add(jsonObject2);
+            }
 
-        JsonArray jsonArray = new JsonArray();
-        for(Attendance a : attendances){
-            JsonObject jsonObject2 = new JsonObject();
-            jsonObject2.addProperty("student_id", a.getStudentId());
-            jsonObject2.addProperty("group", a.getGroupId());
-            jsonObject2.addProperty("week", a.getWeek());
-            jsonArray.add(jsonObject2);
+            jsonObject.addProperty("status", "NEW_ATTENDANCE");
+            jsonObject.add("attendance_log", jsonArray);
+        }else{
+            // //TODO: validation
+            // List<Validate> validates = ObjectifyService.ofy().load().type(Validate.class).filter("tutorial_group_id", "" + group).filter("date >", date).list();
+            // if(!validates.isEmpty()){
+            //     JsonArray jsonArray = new JsonArray();
+            //     for(Validate v : validates){
+            //         JsonObject jsonObject2 = new JsonObject();
+            //         jsonObject2.addProperty("validate_id", v.getValidateId());
+            //         jsonObject2.addProperty("student_id", v.getStudentId());
+            //         jsonObject2.addProperty("token", v.getToken());
+            //         jsonObject2.addProperty("week", v.getWeek());
+            //         jsonObject2.addProperty("group", v.getGroupId());
+            //         jsonArray.add(jsonObject2);
+            //     }
+            //     jsonObject.addProperty("status", "VALIDATION");
+            //     jsonObject.add("validations", jsonArray);
+            // }else{
+            //     // nothing to update
+            //     jsonObject.addProperty("status", "SUCCESS");
+            // }
         }
-
-        jsonObject.addProperty("status", "SUCCESS");
-        jsonObject.add("attendance_log", jsonArray);
-        //TODO: nothing to update
-        //TODO: validation
+ 
         return new StringRepresentation(jsonObject.toString()) ; 
     }
 }

@@ -7,15 +7,6 @@ import org.restlet.routing.Router;
 import org.restlet.Request;
 import org.restlet.Response;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.api.users.User;
-import com.googlecode.objectify.Key;
-import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.cmd.Query;
-
-import java.util.List;
-
 public class FirstStepsApplication extends Application {
 
     /**
@@ -50,10 +41,11 @@ public class FirstStepsApplication extends Application {
             }
         };
 
-        // Read first parameter {Guestbook_Name}
-        router.attach("/attendance/record/json", AttendanceResource.class);
         router.attach("/{guestbook}/", guestbook);
         router.attach("/{guestbook}/{greeting_id}", greeting_id);
+
+        // Read first parameter {Guestbook_Name}
+        router.attach("/attendance/record/json", AttendanceResource.class);     
         router.attach("/register", RegisterResource.class);
         router.attach("/login", LoginResource.class);
         router.attach("/attendance/log", AttendanceLogResource.class);
@@ -64,6 +56,7 @@ public class FirstStepsApplication extends Application {
         router.attach("/attendance/post/xml", ReadTokenXmlResource.class);
         router.attach("/validate", ValidateResource.class);
         router.attach("/message", MessageResource.class);
+        router.attach("/claim", ClaimResource.class);
 
         // work with restlet
         // https://restlet.com/open-source/documentation/user-guide/2.3/core/routing/hierarchical-uris

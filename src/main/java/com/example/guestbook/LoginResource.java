@@ -35,10 +35,22 @@ public class LoginResource extends ServerResource {
         }
 
         Form form = new Form(entity);
-        // TODO: invalid input
+        
         String email = form.getFirstValue("email");
-        // TODO: invalid input
+        // invalid email input
+        if(!ValidateFunc.validateEmail(email)){
+            jsonObject.addProperty("status", "ERROR");
+            jsonObject.addProperty("reason", "Either email or password is incorrect");
+            return new StringRepresentation(jsonObject.toString());
+        }
+        
         String pwd = form.getFirstValue("password");
+        // invalid password input
+        if(!ValidateFunc.validatePwd(pwd)){
+            jsonObject.addProperty("status", "ERROR");
+            jsonObject.addProperty("reason", "Either email or password is incorrect");
+            return new StringRepresentation(jsonObject.toString());
+        }
         String codedPwd = Hashing.sha256().hashString(pwd, StandardCharsets.UTF_8).toString();
 
         Person p = ObjectifyService.ofy().load().type(Person.class).filter("email", email).first().now();

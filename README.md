@@ -215,11 +215,22 @@ or
 ```JSON
 {
     "status" : "VALIDATION",
-    "validate_id" : "validate_id",
-    "student_id" : "stud_student_id",
-    "token" : "stud_token",
-    "week" : "week_num",
-    "group" : "group_num"
+    "validations" : [
+        {
+            "validate_id" : "validate_id",
+            "student_id" : "stud_student_id",
+            "token" : "stud_token",
+            "week" : "week_num",
+            "group" : "group_num"
+        },{
+            "validate_id" : "validate_id",
+            "student_id" : "stud_student_id",
+            "token" : "stud_token",
+            "week" : "week_num",
+            "group" : "group_num"
+        }
+    ]
+    
 }
 ```
 

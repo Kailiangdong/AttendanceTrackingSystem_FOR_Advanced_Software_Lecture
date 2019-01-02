@@ -5,7 +5,6 @@ import com.google.appengine.repackaged.com.google.gson.JsonObject;
 import com.googlecode.objectify.ObjectifyService;
 
 import org.restlet.data.Cookie;
-import org.restlet.data.Form;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
@@ -13,9 +12,17 @@ import org.restlet.resource.ServerResource;
 import org.restlet.util.Series;
 
 public class GetTokenJsonResource extends ServerResource{
+    /**
+     * Request parameters: none
+     * id will identified via cookie
+     * 
+     * @param entity
+     * @return JsonObject in StringRepresentation
+     */
     @Get
     public StringRepresentation handle(Representation entity) {
         JsonObject jsonObject = new JsonObject();
+        // Read cookie contents and find id
         Series<Cookie> cookies = this.getRequest().getCookies();
         Cookie cookie = cookies.getFirst("sessionID");
         if (cookie == null || cookie.getValue() == null) {
@@ -26,7 +33,7 @@ public class GetTokenJsonResource extends ServerResource{
 
         String id = cookie.getValue();
         Person p = ObjectifyService.ofy().load().type(Person.class).id(id).now();
-        if(p instanceof Student){
+        if(p != null && p instanceof Student){
             JsonArray jsonArray = new JsonArray();
             String[] tokens = ((Student)p).getTokens();
             for(int i = 1; i < 13; i++){
@@ -41,8 +48,6 @@ public class GetTokenJsonResource extends ServerResource{
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "You are not a student");
         }
-
-        //TODO: add attendance into objectify service
         
         return new StringRepresentation(jsonObject.toString());
     }

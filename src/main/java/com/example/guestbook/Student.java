@@ -1,13 +1,9 @@
 package com.example.guestbook;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
-import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Subclass;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
 
 @Subclass(index = true)
 public class Student extends Person {

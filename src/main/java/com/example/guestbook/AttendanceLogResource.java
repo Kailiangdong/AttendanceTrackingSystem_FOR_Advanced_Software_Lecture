@@ -45,9 +45,16 @@ public class AttendanceLogResource extends ServerResource {
             }
         } else {
             Form form = new Form(entity);
-            // TODO: invalid input
             String group = form.getFirstValue("group");
             String week = form.getFirstValue("week");
+            int iGroup = Integer.parseInt(group);
+            int iWeek = Integer.parseInt(week);
+            // invalid input
+            if (iGroup < 1 || iGroup > 6 || iWeek < 1 || iWeek > 12) {
+                jsonObject.addProperty("status", "ERROR");
+                jsonObject.addProperty("reason", "Invalid input");
+                return new StringRepresentation(jsonObject.toString());
+            }
             List<Attendance> attendances;
             if (group.equals("all") && week.equals("all")) {
                 attendances = ObjectifyService.ofy().load().type(Attendance.class).list();
