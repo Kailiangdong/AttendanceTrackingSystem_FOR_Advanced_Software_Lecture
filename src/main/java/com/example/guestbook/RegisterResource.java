@@ -1,7 +1,7 @@
 package com.example.guestbook;
 
-import com.google.appengine.repackaged.com.google.api.client.util.Charsets;
-import com.google.appengine.repackaged.com.google.gson.JsonObject;
+import com.google.gson.JsonObject;
+import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import com.googlecode.objectify.ObjectifyService;
 

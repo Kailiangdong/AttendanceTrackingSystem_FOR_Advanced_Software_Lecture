@@ -2,8 +2,8 @@ package com.example.guestbook;
 
 import java.nio.charset.StandardCharsets;
 
-import com.google.appengine.repackaged.com.google.common.hash.Hashing;
-import com.google.appengine.repackaged.com.google.gson.JsonObject;
+import com.google.gson.JsonObject;
+import com.google.common.hash.Hashing;
 import com.googlecode.objectify.ObjectifyService;
 
 import org.restlet.data.Cookie;
@@ -23,7 +23,7 @@ public class LoginResource extends ServerResource {
         Cookie cookie = cookies.getFirst("sessionID");
         // TODO: if session expired
         if (cookie != null) {
-            if (cookie.getValue() != null && cookie.getValue() != "") {
+            if (cookie.getValue() != null && !cookie.getValue().equals("")) {
                 jsonObject.addProperty("status", "SUCCESS");
                 String id = cookie.getValue();
                 jsonObject.addProperty("id", id);

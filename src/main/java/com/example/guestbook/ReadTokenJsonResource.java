@@ -1,6 +1,6 @@
 package com.example.guestbook;
 
-import com.google.appengine.repackaged.com.google.gson.JsonObject;
+import com.google.gson.JsonObject;
 import com.googlecode.objectify.ObjectifyService;
 
 import org.restlet.data.Form;

@@ -1,7 +1,7 @@
 package com.example.guestbook;
 
-import com.google.appengine.repackaged.com.google.gson.JsonArray;
-import com.google.appengine.repackaged.com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.googlecode.objectify.ObjectifyService;
 
 import org.restlet.data.Cookie;
@@ -37,8 +37,7 @@ public class GetTokenJsonResource extends ServerResource{
         if(p != null && p instanceof Student){
             JsonArray jsonArray = new JsonArray();
             String[] tokens = ((Student)p).getTokens();
-            //TODO: change to 13
-            for(int i = 1; i < 12; i++){
+            for(int i = 1; i < 13; i++){
                 JsonObject jsonObject2 = new JsonObject();
                 jsonObject2.addProperty("week", "" + i);
                 jsonObject2.addProperty("token", tokens[i-1]);

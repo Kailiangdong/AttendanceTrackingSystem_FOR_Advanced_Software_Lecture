@@ -85,6 +85,14 @@
             <artifactId>jquery</artifactId>
             <version>3.2.1</version>
         </dependency>
+
+        <!-- Json dependency -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+
     </dependencies>
 
     <!-- Add restlet repository-->
@@ -119,8 +127,8 @@
                 <version>3.1</version>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -182,7 +190,7 @@
                 </configuration>
             </plugin>
 
-             <!-- Copy angular distribution to target directory-->
+            <!-- Copy angular distribution to target directory-->
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.0.2</version>

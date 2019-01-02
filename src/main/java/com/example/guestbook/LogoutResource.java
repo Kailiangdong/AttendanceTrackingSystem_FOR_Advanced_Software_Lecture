@@ -1,6 +1,6 @@
 package com.example.guestbook;
 
-import com.google.appengine.repackaged.com.google.gson.JsonObject;
+import com.google.gson.JsonObject;
 
 import org.restlet.data.Cookie;
 import org.restlet.data.CookieSetting;
@@ -23,7 +23,7 @@ public class LogoutResource extends ServerResource{
             }
         }
         
-        CookieSetting cS = new CookieSetting(0, "sessionID", null);
+        CookieSetting cS = new CookieSetting(0, null, null);
             this.getResponse().getCookieSettings().add(cS);
             jsonObject.addProperty("status", "SUCCESS");
             jsonObject.addProperty("message", "You have successfully logged out");
