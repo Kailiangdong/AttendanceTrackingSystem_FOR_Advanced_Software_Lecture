@@ -24,6 +24,7 @@ public class RegisterResource extends ServerResource {
             jsonObject.addProperty("reason", "Invalid email");
             return new StringRepresentation(jsonObject.toString());
         }
+        // TODO: already registered
 
         String pwd = form.getFirstValue("password");
         // invalid password input

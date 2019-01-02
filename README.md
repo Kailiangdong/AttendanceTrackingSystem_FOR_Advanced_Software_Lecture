@@ -48,6 +48,16 @@ or
     "reason" : "Either email or password is incorrect"
 }
 ```
+### Logout
+https://my-first-project-222110.appspot.com/rest/logout  
+Response
+
+```JSON
+{
+    "status" : "SUCCESS",
+    "message" : "You have successfully logged out",
+}
+```
 
 ### Show all attendance log
 using POST method\
@@ -142,7 +152,7 @@ Response:
 
 ### Record attendance TUTOR(XML format)(not implemented yet):
 Using POST method:\
-https://my-first-project-222110.appspot.com/rest/attendance/record/xml  
+~~https://my-first-project-222110.appspot.com/rest/attendance/record/xml~~  
 POST element:\
 ~~attendance_id=stud_attendance_id&\
 student_id=stud_student_id&\

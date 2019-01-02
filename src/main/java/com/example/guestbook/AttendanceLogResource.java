@@ -26,7 +26,8 @@ public class AttendanceLogResource extends ServerResource {
         }
 
         String id = cookie.getValue();
-        Person p = ObjectifyService.ofy().load().type(Person.class).id(id).now();
+        Long lID = Long.parseLong(id);
+        Person p = ObjectifyService.ofy().load().type(Person.class).id(lID).now();
         if (p == null) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Undefined person");
@@ -47,14 +48,38 @@ public class AttendanceLogResource extends ServerResource {
             Form form = new Form(entity);
             String group = form.getFirstValue("group");
             String week = form.getFirstValue("week");
-            int iGroup = Integer.parseInt(group);
-            int iWeek = Integer.parseInt(week);
-            // invalid input
-            if (iGroup < 1 || iGroup > 6 || iWeek < 1 || iWeek > 12) {
-                jsonObject.addProperty("status", "ERROR");
-                jsonObject.addProperty("reason", "Invalid input");
-                return new StringRepresentation(jsonObject.toString());
+            try {
+                int iGroup = Integer.parseInt(group);
+                if (iGroup < 1 || iGroup > 6) {
+                    jsonObject.addProperty("status", "ERROR");
+                    jsonObject.addProperty("reason", "Invalid input");
+                    return new StringRepresentation(jsonObject.toString());
+                }
+            } catch (NumberFormatException e) {
+                if (!group.equals("all")) {
+                    jsonObject.addProperty("status", "ERROR");
+                    jsonObject.addProperty("reason", "Invalid input");
+                    return new StringRepresentation(jsonObject.toString());
+                }
             }
+
+            try {
+                int iWeek = Integer.parseInt(week);
+                if (iWeek < 1 || iWeek > 12) {
+                    jsonObject.addProperty("status", "ERROR");
+                    jsonObject.addProperty("reason", "Invalid input");
+                    return new StringRepresentation(jsonObject.toString());
+                }
+            } catch (NumberFormatException e) {
+                if (!week.equals("all")) {
+                    jsonObject.addProperty("status", "ERROR");
+                    jsonObject.addProperty("reason", "Invalid input");
+                    return new StringRepresentation(jsonObject.toString());
+                }
+            }
+
+            // invalid input
+
             List<Attendance> attendances;
             if (group.equals("all") && week.equals("all")) {
                 attendances = ObjectifyService.ofy().load().type(Attendance.class).list();
@@ -69,7 +94,7 @@ public class AttendanceLogResource extends ServerResource {
 
             for (Attendance a : attendances) {
                 JsonObject jsonObject2 = new JsonObject();
-                jsonObject2.addProperty("student_id", id);
+                jsonObject2.addProperty("student_id", a.getStudentId());
                 jsonObject2.addProperty("group", a.getGroupId());
                 jsonObject2.addProperty("week_num", a.getWeek());
                 jsonArray.add(jsonObject2);
@@ -81,4 +106,6 @@ public class AttendanceLogResource extends ServerResource {
 
         return new StringRepresentation(jsonObject.toString());
     }
+
+    // TODO: another handle without post
 }

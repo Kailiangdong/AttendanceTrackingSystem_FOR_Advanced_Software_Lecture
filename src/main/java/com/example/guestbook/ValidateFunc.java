@@ -10,7 +10,7 @@ public class ValidateFunc {
     public static final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",
             Pattern.CASE_INSENSITIVE);
 
-    public static final Pattern VALID_NAME_REGEX = Pattern.compile("^[A-Za-zÄÖÜäöü]{,16}$",
+    public static final Pattern VALID_NAME_REGEX = Pattern.compile("^[A-Za-z]{0,16}$",
             Pattern.CASE_INSENSITIVE);        
 
     public static boolean validateEmail(String emailStr) {

@@ -9,12 +9,12 @@ import com.googlecode.objectify.annotation.Index;
 @Entity
 @Index
 public class Attendance{
-    @Id public long id;
-    private String token;
-    private String student_id;
-    private String tutorial_group_id;
-    private String week_id;
-    private boolean presented;
+    @Id Long id;
+    String token;
+    String student_id;
+    String tutorial_group_id;
+    String week_id;
+    boolean presented;
     Date date;
 
     public Attendance(){

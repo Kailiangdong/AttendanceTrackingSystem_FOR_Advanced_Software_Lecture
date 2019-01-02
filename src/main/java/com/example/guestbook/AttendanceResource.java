@@ -23,7 +23,8 @@ public class AttendanceResource extends ServerResource {
         }
 
         String id = cookie.getValue();
-        Person p = ObjectifyService.ofy().load().type(Person.class).id(id).now();
+        Long lID = Long.parseLong(id);
+        Person p = ObjectifyService.ofy().load().type(Person.class).id(lID).now();
         if (p instanceof Tutor) {
             Form form = new Form(entity);
             String token = form.getFirstValue("token");
@@ -31,8 +32,9 @@ public class AttendanceResource extends ServerResource {
             String group = form.getFirstValue("group");
             String week = form.getFirstValue("week");
             String presented = form.getFirstValue("presented");
+            Long slID = Long.parseLong(student_id);
 
-            Student s = ObjectifyService.ofy().load().type(Student.class).id(student_id).now();
+            Student s = ObjectifyService.ofy().load().type(Student.class).id(slID).now();
             if (s == null) {
                 jsonObject.addProperty("status", "ERROR");
                 jsonObject.addProperty("reason", "Student does not exist");
@@ -64,7 +66,7 @@ public class AttendanceResource extends ServerResource {
                 return new StringRepresentation(jsonObject.toString());
             }
             Attendance aNew = new Attendance(token, student_id, group, week, Boolean.parseBoolean(presented));
-            ObjectifyService.ofy().save().entity(aNew);
+            ObjectifyService.ofy().save().entity(aNew).now();
             jsonObject.addProperty("status", "SUCCESS");
             jsonObject.addProperty("reason", "");
 

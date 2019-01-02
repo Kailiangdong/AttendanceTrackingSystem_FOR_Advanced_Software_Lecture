@@ -14,8 +14,8 @@ public class Student extends Person {
     public Student(String firstName, String lastName, String email, String pwd, int group) {
         super(firstName, lastName, email, pwd);
         this.group = group;
-        tokens = new String[11];
-        for (int i = 0; i < 11; i++) {
+        tokens = new String[12];
+        for (int i = 0; i < 12; i++) {
             // Generates random token id
             String uniqueID = UUID.randomUUID().toString();
             boolean same = false;
@@ -51,6 +51,6 @@ public class Student extends Person {
     }
 
     public boolean validateToken(String token, int week){
-        return token.equals(tokens[week]);
+        return token.equals(tokens[week - 1]);
     }
 }

@@ -26,8 +26,9 @@ public class LoginResource extends ServerResource {
             if (cookie.getValue() != null && cookie.getValue() != "") {
                 jsonObject.addProperty("status", "SUCCESS");
                 String id = cookie.getValue();
-                jsonObject.addProperty("student_id", id);
-                Person p = ObjectifyService.ofy().load().type(Person.class).id(id).now();
+                jsonObject.addProperty("id", id);
+                Long lID = Long.parseLong(id);
+                Person p = ObjectifyService.ofy().load().type(Person.class).id(lID).now();
                 jsonObject.addProperty("is_tutor", Boolean.toString(p instanceof Tutor));
                 jsonObject.addProperty("reason", "You have already logged in");
                 return new StringRepresentation(jsonObject.toString());
@@ -61,7 +62,7 @@ public class LoginResource extends ServerResource {
             CookieSetting cS = new CookieSetting(0, "sessionID", p.getId());
             this.getResponse().getCookieSettings().add(cS);
             jsonObject.addProperty("status", "SUCCESS");
-            jsonObject.addProperty("student_id", p.getId());
+            jsonObject.addProperty("id", p.getId());
             jsonObject.addProperty("is_tutor", Boolean.toString(p instanceof Tutor));
             return new StringRepresentation(jsonObject.toString());
         }else{

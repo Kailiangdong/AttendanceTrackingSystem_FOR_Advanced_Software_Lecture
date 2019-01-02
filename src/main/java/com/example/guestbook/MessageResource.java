@@ -19,8 +19,9 @@ public class MessageResource extends ServerResource{
         Form form = new Form(entity);  
         String student_id = form.getFirstValue("student_id");  
         String date = form.getFirstValue("date");
+        Long slID = Long.parseLong(student_id);
 
-        Student s = ObjectifyService.ofy().load().type(Student.class).id(student_id).now();
+        Student s = ObjectifyService.ofy().load().type(Student.class).id(slID).now();
         if (s == null) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Student does not exist");

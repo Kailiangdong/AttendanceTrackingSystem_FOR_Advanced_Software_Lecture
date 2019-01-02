@@ -41,16 +41,17 @@ public class FirstStepsApplication extends Application {
             }
         };
 
-        router.attach("/{guestbook}/", guestbook);
-        router.attach("/{guestbook}/{greeting_id}", greeting_id);
+        //router.attach("/{guestbook}/", guestbook);
+        //router.attach("/{guestbook}/{greeting_id}", greeting_id);
 
         // Read first parameter {Guestbook_Name}
         router.attach("/attendance/record/json", AttendanceResource.class);     
         router.attach("/register", RegisterResource.class);
         router.attach("/login", LoginResource.class);
+        router.attach("/logout", LogoutResource.class);
         router.attach("/attendance/log", AttendanceLogResource.class);
         router.attach("/attendance/get/json", GetTokenJsonResource.class);
-        router.attach("attendance/get/xml", GetTokenXmlResource.class);
+        router.attach("/attendance/get/xml", GetTokenXmlResource.class);
         router.attach("/attendance/record/xml", AttendanceResource.class);
         router.attach("/attendance/post/json", ReadTokenJsonResource.class);
         router.attach("/attendance/post/xml", ReadTokenXmlResource.class);

@@ -19,19 +19,22 @@ public class ReadTokenJsonResource extends ServerResource{
         String group = form.getFirstValue("group");
         String week = form.getFirstValue("week");
         String presented = form.getFirstValue("presented");
+        Long slID = Long.parseLong(student_id);
 
-        Student s = ObjectifyService.ofy().load().type(Student.class).id(student_id).now();
+        Student s = ObjectifyService.ofy().load().type(Student.class).id(slID).now();
         if (s == null) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Student does not exist");
             return new StringRepresentation(jsonObject.toString());
         }
+        //TODO: try catch block
         int iGroup = Integer.parseInt(group);
         if (iGroup < 1 || iGroup > 6 || iGroup != s.getGroup()) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Invalid group number");
             return new StringRepresentation(jsonObject.toString());
         }
+        //TODO: try catch block
         int iWeek = Integer.parseInt(week);
         if (iWeek < 1 || iWeek > 12) {
             jsonObject.addProperty("status", "ERROR");

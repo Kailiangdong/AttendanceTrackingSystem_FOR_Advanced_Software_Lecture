@@ -32,11 +32,13 @@ public class GetTokenJsonResource extends ServerResource{
         }
 
         String id = cookie.getValue();
-        Person p = ObjectifyService.ofy().load().type(Person.class).id(id).now();
+        Long lID = Long.parseLong(id);
+        Person p = ObjectifyService.ofy().load().type(Person.class).id(lID).now();
         if(p != null && p instanceof Student){
             JsonArray jsonArray = new JsonArray();
             String[] tokens = ((Student)p).getTokens();
-            for(int i = 1; i < 13; i++){
+            //TODO: change to 13
+            for(int i = 1; i < 12; i++){
                 JsonObject jsonObject2 = new JsonObject();
                 jsonObject2.addProperty("week", "" + i);
                 jsonObject2.addProperty("token", tokens[i-1]);
