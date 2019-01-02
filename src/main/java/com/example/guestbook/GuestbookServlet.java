@@ -49,8 +49,8 @@ public class GuestbookServlet extends HttpServlet {
         if(groupName == null)
           return;
         else{
-          Student student = new Student(currentUser.getNickname(), groupName);
-          ObjectifyService.ofy().save().entity(student).now();
+          // Student student = new Student(currentUser.getNickname(), groupName);
+          // ObjectifyService.ofy().save().entity(student).now();
         }
         resp.sendRedirect("/guestbook.jsp");
       } else {
@@ -70,8 +70,8 @@ public class GuestbookServlet extends HttpServlet {
       if(groupName == null)
         return;
       else{
-        Student student = new Student(currentUser.getNickname(), groupName);
-        ObjectifyService.ofy().save().entity(student).now();
+        // Student student = new Student(currentUser.getNickname(), groupName);
+        // ObjectifyService.ofy().save().entity(student).now();
       }
       resp.sendRedirect("/guestbook.jsp");
     }

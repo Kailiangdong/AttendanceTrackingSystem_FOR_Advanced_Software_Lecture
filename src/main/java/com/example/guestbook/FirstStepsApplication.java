@@ -51,10 +51,19 @@ public class FirstStepsApplication extends Application {
         };
 
         // Read first parameter {Guestbook_Name}
-        router.attach("/attendance", AttendanceResource.class);
+        router.attach("/attendance/record/json", AttendanceResource.class);
         router.attach("/{guestbook}/", guestbook);
         router.attach("/{guestbook}/{greeting_id}", greeting_id);
-        
+        router.attach("/register", RegisterResource.class);
+        router.attach("/login", LoginResource.class);
+        router.attach("/attendance/log", AttendanceLogResource.class);
+        router.attach("/attendance/get/json", GetTokenJsonResource.class);
+        router.attach("attendance/get/xml", GetTokenXmlResource.class);
+        router.attach("/attendance/record/xml", AttendanceResource.class);
+        router.attach("/attendance/post/json", ReadTokenJsonResource.class);
+        router.attach("/attendance/post/xml", ReadTokenXmlResource.class);
+        router.attach("/validate", ValidateResource.class);
+        router.attach("/message", MessageResource.class);
 
         // work with restlet
         // https://restlet.com/open-source/documentation/user-guide/2.3/core/routing/hierarchical-uris

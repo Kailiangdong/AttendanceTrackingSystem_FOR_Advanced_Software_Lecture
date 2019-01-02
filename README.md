@@ -5,7 +5,7 @@ ASE Project
 ## API Definitions
 ### Register
 using POST method\
-https://my-first-project-222110.appspot.com/rest/register\
+https://my-first-project-222110.appspot.com/rest/register  
 POST element:\
 first_name=your_first_name&\
 last_name=your_last_name&\
@@ -26,7 +26,7 @@ Response
 
 ### Login
 using POST method\
-https://my-first-project-222110.appspot.com/rest/login\
+https://my-first-project-222110.appspot.com/rest/login  
 POST element:\
 email=your_email_address&\
 password=your_password
@@ -35,7 +35,7 @@ Response
 
 ```JSON
 {
-	"status" : "SUCCESS",
+    "status" : "SUCCESS",
     "id" : "1234567891011",
     "is_tutor" : "false",
     "reason" : ""
@@ -44,17 +44,17 @@ Response
 or
 ```JSON
 {
-	"status" : "ERROR",
+    "status" : "ERROR",
     "reason" : "Either email or password is incorrect"
 }
 ```
 
 ### Show all attendance log
 using POST method\
-https://my-first-project-222110.appspot.com/rest/attendance/log\
-POST element:\
-group=your_group_id\
-session=session_id
+https://my-first-project-222110.appspot.com/rest/attendance/log  
+POST element:(only for TUTOR)\
+group=selected_group_id/all&\
+week=selected_week/all
 
 Response
 
@@ -79,19 +79,39 @@ Response
 
 ### Get token from server(JSON format):
 using GET method\
-https://my-first-project-222110.appspot.com/rest/attendance/get/json?student_id=your_student_id&week_num=this_week_number\
+https://my-first-project-222110.appspot.com/rest/attendance/get/json  
 Response
 
 ```JSON
 {
 	"status" : "SUCCESS",
-	"token" : "1234567891011"
+	"tokens" : [
+        {
+            "week" : "1",
+            "token" : "1234567891011"
+        },{
+            "week" : "2",
+            "token" : "1234567891011"
+        },
+        ...,
+        {
+            "week" : "12",
+            "token" : "1234567891011"
+        }
+    ]
+}
+```
+or
+```JSON
+{
+    "status" : "ERROR",
+    "reason" : "You are not a student"
 }
 ```
 
-### Get token from server(XML format):
+### Get token from server(XML format)(not implemented yet):
 using GET method\
-~~https://my-first-project-222110.appspot.com/rest/attendance/get/xml?student_id=your_student_id&week_num=this_week_number~~\
+~~https://my-first-project-222110.appspot.com/rest/attendance/get/xml?student_id=your_student_id&week_num=this_week_number~~  
 Response:
 ```XML
 <authentification>
@@ -104,14 +124,13 @@ Response:
 Only tutors are allowed to use this endpoint(credential id will be checked)
 
 Using POST method:\
-https://my-first-project-222110.appspot.com/rest/attendance/record/json\
+https://my-first-project-222110.appspot.com/rest/attendance/record/json  
 POST element:\
-attendance_id=stud_attendance_id&\
+token=stud_token&\
 student_id=stud_student_id&\
 group=this_group&\
-week_num=this_week_num&\
-presented=true/false&\
-credential_id=tutor_credential_id
+week=this_week&\
+presented=true/false
 
 Response:
 ```JSON
@@ -121,9 +140,9 @@ Response:
 }
 ```
 
-### Record attendance TUTOR(XML format):
+### Record attendance TUTOR(XML format)(not implemented yet):
 Using POST method:\
-https://my-first-project-222110.appspot.com/rest/attendance/record/xml\
+https://my-first-project-222110.appspot.com/rest/attendance/record/xml  
 POST element:\
 ~~attendance_id=stud_attendance_id&\
 student_id=stud_student_id&\
@@ -142,10 +161,13 @@ Response:
 
 ### Record attendance STUDENT(JSON format):
 Using POST method:\
-https://my-first-project-222110.appspot.com/rest/attendance/post/json\
+https://my-first-project-222110.appspot.com/rest/attendance/post/json  
 POST element:\
-student_id=your_student_id&\
-token=your_token
+token=stud_token&\
+student_id=stud_student_id&\
+group=this_group&\
+week=this_week&\
+presented=true/false
 
 Response:
 ```JSON
@@ -154,9 +176,9 @@ Response:
     "reason" : "Token used before",
 }
 ```
-### Record attendance STUDENT(XML format):
+### Record attendance STUDENT(XML format)(not implemented yet):
 Using POST method:\
-https://my-first-project-222110.appspot.com/rest/attendance/post/xml\
+https://my-first-project-222110.appspot.com/rest/attendance/post/xml  
 POST element:\
 ~~student_id=your_student_id&\
 token=your_token~~
@@ -169,16 +191,24 @@ Response:
 </attendance>
 ```
 
-### Cloud messaging for android
+### Cloud messaging for android(not implemented yet)
 using GET method:\
-https://my-first-project-222110.appspot.com/rest/message?student_id=your_student_id\
+https://my-first-project-222110.appspot.com/rest/message?student_id=your_student_id&date=last_updated_time  
 Response
 ```JSON
 {
     "status" : "NEW_ATTENDANCE",
-    "student_id" : "stud_student_id",
-    "group" : "group_num",
-    "week" : "week_num"
+    "attendance_log" : [
+        {
+            "student_id" : "stud_student_id",
+            "group" : "group_num",
+            "week" : "week_num"
+        },{
+            "student_id" : "stud_student_id",
+            "group" : "group_num",
+            "week" : "week_num"
+        }
+    ]  
 }
 ```
 or
@@ -193,7 +223,7 @@ or
 }
 ```
 
-### Validation of missed attendance
+### Validation of missed attendance(not implemented yet)
 using GET method:\
 https://my-first-project-222110.appspot.com/rest/validate?validate_id=validate_id&student_id=this_student_id&result=true\false
 
