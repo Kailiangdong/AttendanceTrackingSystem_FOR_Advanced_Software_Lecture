@@ -3,6 +3,20 @@
 ASE Project
 
 ## API Definitions
+**[Register](#Register)**  
+**[Login](#Login)**  
+**[Logout](#Logout)**  
+**[Show all attendance log](#Show-all-attendance-log)**  
+**[Get token from server(JSON format)](#Get-token-from-server(JSON-format))**  
+**[Get token from server(XML format)(not implemented yet)](#Get-token-from-server(XML-format)(not-implemented-yet))**  
+**[Record attendance TUTOR(JSON format)](#Record-attendance-TUTOR(JSON-format))**  
+**[Record attendance TUTOR(XML format)(not implemented yet)](#Record-attendance-TUTOR(XML-format)(not-implemented-yet))**  
+**[Record attendance STUDENT(JSON format)](#Record-attendance-STUDENT(JSON-format))**  
+**[Record attendance STUDENT(XML format)(not implemented yet)](#Record-attendance-STUDENT(XML-format)(not-implemented-yet))**  
+**[Cloud messaging for android](#Cloud-messaging-for-android)**  
+**[Claim(not implemented yet)](#Claim(not-implemented-yet))**  
+**[Validation of missing attendance(not implemented yet)](#Validation-of-missing-attendance(not-implemented-yet))**  
+
 ### Register
 using POST method\
 https://my-first-project-222110.appspot.com/rest/register  
@@ -188,7 +202,7 @@ Response:
 ```
 ### Record attendance STUDENT(XML format)(not implemented yet):
 Using POST method:\
-https://my-first-project-222110.appspot.com/rest/attendance/post/xml  
+~~https://my-first-project-222110.appspot.com/rest/attendance/post/xml~~  
 POST element:\
 ~~student_id=your_student_id&\
 token=your_token~~
@@ -201,7 +215,9 @@ Response:
 </attendance>
 ```
 
-### Cloud messaging for android(not implemented yet)
+### Cloud messaging for android
+**NOT in use: Validation notification**  
+
 using GET method:\
 https://my-first-project-222110.appspot.com/rest/message?student_id=your_student_id&date=last_updated_time  
 Response
@@ -244,7 +260,18 @@ or
 }
 ```
 
-### Validation of missed attendance(not implemented yet)
+### Claim(not implemented yet)
+using GET method:\
+~~https://my-first-project-222110.appspot.com/rest/claim?student_id=your_student_id~~  
+
+Response
+```JSON
+{
+    "status" : "OK",
+}
+```
+
+### Validation of missing attendance(not implemented yet)
 using GET method:\
 https://my-first-project-222110.appspot.com/rest/validate?validate_id=validate_id&student_id=this_student_id&result=true\false
 
