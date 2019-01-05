@@ -26,7 +26,15 @@ public class AttendanceLogResource extends ServerResource {
         }
 
         String id = cookie.getValue();
-        Long lID = Long.parseLong(id);
+        Long lID;
+        try {
+            lID = Long.parseLong(id);
+        } catch (NumberFormatException e) {
+            jsonObject.addProperty("status", "ERROR");
+            jsonObject.addProperty("reason", "Please contact to developer");
+            return new StringRepresentation(jsonObject.toString());
+        }
+        
         Person p = ObjectifyService.ofy().load().type(Person.class).id(lID).now();
         if (p == null) {
             jsonObject.addProperty("status", "ERROR");

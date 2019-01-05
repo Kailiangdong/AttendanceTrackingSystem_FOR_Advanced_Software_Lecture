@@ -19,7 +19,14 @@ public class ReadTokenJsonResource extends ServerResource{
         String group = form.getFirstValue("group");
         String week = form.getFirstValue("week");
         String presented = form.getFirstValue("presented");
-        Long slID = Long.parseLong(student_id);
+        Long slID;
+        try {
+            slID = Long.parseLong(student_id);
+        } catch (NumberFormatException e) {
+            jsonObject.addProperty("status", "ERROR");
+            jsonObject.addProperty("reason", "Invalid student id");
+            return new StringRepresentation(jsonObject.toString());
+        }
 
         Student s = ObjectifyService.ofy().load().type(Student.class).id(slID).now();
         if (s == null) {
@@ -27,16 +34,29 @@ public class ReadTokenJsonResource extends ServerResource{
             jsonObject.addProperty("reason", "Student does not exist");
             return new StringRepresentation(jsonObject.toString());
         }
-        //TODO: try catch block
-        int iGroup = Integer.parseInt(group);
-        if (iGroup < 1 || iGroup > 6 || iGroup != s.getGroup()) {
+
+        try {
+            int iGroup = Integer.parseInt(group);
+            if (iGroup < 1 || iGroup > 6 || iGroup != s.getGroup()) {
+                jsonObject.addProperty("status", "ERROR");
+                jsonObject.addProperty("reason", "Invalid group number");
+                return new StringRepresentation(jsonObject.toString());
+            }
+        } catch (NumberFormatException e) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Invalid group number");
             return new StringRepresentation(jsonObject.toString());
         }
-        //TODO: try catch block
-        int iWeek = Integer.parseInt(week);
-        if (iWeek < 1 || iWeek > 12) {
+
+        int iWeek;
+        try {
+            iWeek = Integer.parseInt(week);
+            if (iWeek < 1 || iWeek > 12) {
+                jsonObject.addProperty("status", "ERROR");
+                jsonObject.addProperty("reason", "Invalid week number");
+                return new StringRepresentation(jsonObject.toString());
+            }
+        } catch (NumberFormatException e) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Invalid week number");
             return new StringRepresentation(jsonObject.toString());
@@ -52,6 +72,12 @@ public class ReadTokenJsonResource extends ServerResource{
         if (a != null) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Token used before");
+            return new StringRepresentation(jsonObject.toString());
+        }
+
+        if(!presented.equals("false") || !presented.equals("true")){
+            jsonObject.addProperty("status", "ERROR");
+            jsonObject.addProperty("reason", "Invalid input");
             return new StringRepresentation(jsonObject.toString());
         }
         Attendance aNew = new Attendance(token, student_id, group, week, Boolean.parseBoolean(presented));

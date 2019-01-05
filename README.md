@@ -32,7 +32,7 @@ Response
 
 ```JSON
 {
-	"status" : "SUCCESS",
+    "status" : "SUCCESS",
     "id" : "1234567891011",
     "reason" : ""
 }
