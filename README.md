@@ -51,6 +51,8 @@ Response
 {
     "status" : "SUCCESS",
     "id" : "1234567891011",
+    "first_name" : "firstName",
+    "last_name" : "lastName",
     "is_tutor" : "false",
     "reason" : ""
 }
@@ -76,26 +78,30 @@ Response
 ### Show all attendance log
 using POST method\
 https://my-first-project-222110.appspot.com/rest/attendance/log  
-POST element:(only for TUTOR)\
-group=selected_group_id/all&\
-week=selected_week/all
+**for TUTOR:**  
+POST element:  
+group=selected_group_id/all&  
+week=selected_week/all  
+**for STUDENT:**  
+No request element needed
 
 Response
-
 ```JSON
 {
 	"status" : "SUCCESS",
 	"attendance_log" : [
         {
             "student_id" : "stud_student_id",
+            "first_name" : "firstName",
+            "last_name" : "lastName",
             "group" : "groupxxx",
             "week_num" : "week_num",
-            "presented" : "true",
         },{
             "student_id" : "stud_student_id",
+            "first_name" : "firstName",
+            "last_name" : "lastName",
             "group" : "groupxxx",
             "week_num" : "week_num",
-            "presented" : "true",
         }
     ]
 }

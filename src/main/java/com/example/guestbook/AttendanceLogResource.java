@@ -48,6 +48,8 @@ public class AttendanceLogResource extends ServerResource {
             for (Attendance a : attendances) {
                 JsonObject jsonObject2 = new JsonObject();
                 jsonObject2.addProperty("student_id", id);
+                jsonObject2.addProperty("first_name", p.getFirstName());
+                jsonObject2.addProperty("last_name", p.getLastName());
                 jsonObject2.addProperty("group", a.getGroupId());
                 jsonObject2.addProperty("week_num", a.getWeek());
                 jsonArray.add(jsonObject2);
@@ -101,8 +103,11 @@ public class AttendanceLogResource extends ServerResource {
             }
 
             for (Attendance a : attendances) {
+                Person p1 = ObjectifyService.ofy().load().type(Person.class).id(Long.parseLong(a.getStudentId())).now();
                 JsonObject jsonObject2 = new JsonObject();
                 jsonObject2.addProperty("student_id", a.getStudentId());
+                jsonObject2.addProperty("first_name", p1.getFirstName());
+                jsonObject2.addProperty("last_name", p1.getLastName());
                 jsonObject2.addProperty("group", a.getGroupId());
                 jsonObject2.addProperty("week_num", a.getWeek());
                 jsonArray.add(jsonObject2);

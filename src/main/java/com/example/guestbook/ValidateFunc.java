@@ -14,16 +14,19 @@ public class ValidateFunc {
             Pattern.CASE_INSENSITIVE);        
 
     public static boolean validateEmail(String emailStr) {
+        if(emailStr == null) return false;
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
     }
 
     public static boolean validatePwd(String pwdStr) {
+        if(pwdStr == null) return false;
         Matcher matcher = VALID_PASSWORD_REGEX.matcher(pwdStr);
         return matcher.find();
     }
 
     public static boolean validateName(String nameStr) {
+        if(nameStr == null) return false;
         Matcher matcher = VALID_NAME_REGEX.matcher(nameStr);
         return matcher.find();
     }

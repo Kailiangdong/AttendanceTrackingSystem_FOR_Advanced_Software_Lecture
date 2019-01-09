@@ -29,6 +29,8 @@ public class LoginResource extends ServerResource {
                 jsonObject.addProperty("id", id);
                 Long lID = Long.parseLong(id);
                 Person p = ObjectifyService.ofy().load().type(Person.class).id(lID).now();
+                jsonObject.addProperty("first_name", p.getFirstName());
+                jsonObject.addProperty("last_name", p.getLastName());
                 jsonObject.addProperty("is_tutor", Boolean.toString(p instanceof Tutor));
                 jsonObject.addProperty("reason", "You have already logged in");
                 return new StringRepresentation(jsonObject.toString());
@@ -63,6 +65,8 @@ public class LoginResource extends ServerResource {
             this.getResponse().getCookieSettings().add(cS);
             jsonObject.addProperty("status", "SUCCESS");
             jsonObject.addProperty("id", p.getId());
+            jsonObject.addProperty("first_name", p.getFirstName());
+            jsonObject.addProperty("last_name", p.getLastName());
             jsonObject.addProperty("is_tutor", Boolean.toString(p instanceof Tutor));
             return new StringRepresentation(jsonObject.toString());
         }else{

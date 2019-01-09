@@ -35,4 +35,12 @@ public class Person{
     public boolean validatePwd(String pwd){
         return pwd.equals(this.pwd);
     }
+
+    public String getFirstName(){
+        return this.firstName;
+    }
+
+    public String getLastName(){
+        return this.lastName;
+    }
 }
