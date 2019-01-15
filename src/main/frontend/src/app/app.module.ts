@@ -7,15 +7,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { StudenthomeComponent,DialogOverviewExampleDialog } from './studenthome/studenthome.component';
-import { StudentlistComponent } from './studentlist/studentlist.component';
 import { TutorhomeComponent } from './tutorhome/tutorhome.component';
 import { TutorlistComponent } from './tutorlist/tutorlist.component';
 import { TutoreditorComponent } from './tutoreditor/tutoreditor.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule, MatSelectModule,MatIconModule, MatToolbarModule, MatOptionModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
+import {MatTableModule,MatButtonModule, MatRadioModule,MatSelectModule,MatIconModule, MatToolbarModule, MatOptionModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { QRCodeModule } from 'angularx-qrcode';
+import { AlertService, AuthenticationService, UserService } from './services';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +24,6 @@ import { QRCodeModule } from 'angularx-qrcode';
     LoginComponent,
     RegisterComponent,
     StudenthomeComponent,
-    StudentlistComponent,
     TutorhomeComponent,
     TutorlistComponent,
     TutoreditorComponent,
@@ -40,13 +40,18 @@ import { QRCodeModule } from 'angularx-qrcode';
     MatIconModule, 
     MatFormFieldModule,
     MatInputModule,
+    MatRadioModule,
     MatSelectModule,
     MatOptionModule,
     MatToolbarModule,
     MatDialogModule,
     QRCodeModule,
+    MatTableModule
   ],
   providers: [
+    AlertService,
+    AuthenticationService,
+    UserService,
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   bootstrap: [AppComponent]

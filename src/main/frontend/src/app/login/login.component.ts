@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { AlertService, AuthenticationService } from '../services';
 
 @Component({
   selector: 'app-login',
@@ -19,19 +20,16 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        ) {}
+        private authenticationService: AuthenticationService,
+        private alertService: AlertService) {}
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
-            username: ['', Validators.required],
+            email: ['', Validators.required],
             password: ['', Validators.required]
         });
-
-        // reset login status
-        //this.authenticationService.logout();
-
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        // // reset login status
+        // this.authenticationService.logout();
     }
 
     // convenience getter for easy access to form fields
@@ -46,15 +44,13 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        // this.authenticationService.login(this.f.username.value, this.f.password.value)
-        //     .pipe(first())
-        //     .subscribe(
-        //         data => {
-        //             this.router.navigate([this.returnUrl]);
-        //         },
-        //         error => {
-        //             this.alertService.error(error);
-        //             this.loading = false;
-        //         });
+        this.authenticationService.login(this.f.email.value, this.f.password.value)
+            .pipe(first())
+            .subscribe(
+                 resp => {
+                    if(resp["status"] =="SUCCESS")
+                        this.router.navigate(['/studenthome']);
+                }
+            )
     }
 }

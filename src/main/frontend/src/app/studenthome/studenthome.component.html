@@ -1,29 +1,36 @@
 <div>
-  <p>
-    Hello! Kailiang Dong
-  </p>
-  <p>
-    please select your group
-  </p>
   <div>
-    <mat-form-field>
-      <mat-label>Select your group</mat-label>
-      <select matNativeControl >
-          <option value="" disabled selected></option>
-          <option value="Group1">Group1</option>
-          <option value="Group2">Group2</option>
-          <option value="Group3">Group3</option>
-          <option value="Group4">Group4</option>
-          <option value="Group5">Group5</option>
-      </select>
-    </mat-form-field>
-    <button>Submit</button>
+      <button mat-raised-button (click)="openDialog()">Generate Qr code</button>
   </div>
-  <div>
-    <button routerLink="/studentlist" >My attendance</button>
-  </div>
-  <div>
-    <button mat-raised-button (click)="openDialog()">Generate Qr code</button>
-  </div>
-
+  <div class="table-container">
+    <mat-table [dataSource]="users" class="mat-elevation-z8">
+    
+        <!-- Firstname Column -->
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef> Firstname </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.basic.firstName}} </mat-cell>
+        </ng-container>
+    
+        <!-- Lastname Column -->
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef> Lastname </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.basic.lastName}} </mat-cell>
+        </ng-container>
+    
+        <!-- Week Column -->
+        <ng-container matColumnDef="week">
+          <mat-header-cell *matHeaderCellDef> Week </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.basic.week}} </mat-cell>
+        </ng-container>
+    
+        <!-- attendance Column -->
+        <ng-container matColumnDef="attendance">
+          <mat-header-cell *matHeaderCellDef> Attendance </mat-header-cell>
+          <mat-cell *matCellDef="let user"> {{user.attendance}} </mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>  
 </div>
