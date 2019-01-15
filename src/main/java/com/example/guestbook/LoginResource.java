@@ -38,28 +38,31 @@ public class LoginResource extends ServerResource {
         }
 
         Form form = new Form(entity);
-        
+
         String email = form.getFirstValue("email");
         // invalid email input
-        if(!ValidateFunc.validateEmail(email)){
+        if (!ValidateFunc.validateEmail(email)) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Either email or password is incorrect");
             return new StringRepresentation(jsonObject.toString());
         }
-        
+
         String pwd = form.getFirstValue("password");
         // invalid password input
-        if(!ValidateFunc.validatePwd(pwd)){
+        if (!ValidateFunc.validatePwd(pwd)) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Either email or password is incorrect");
             return new StringRepresentation(jsonObject.toString());
         }
-        String codedPwd = Hashing.sha256().hashString(pwd, StandardCharsets.UTF_8).toString();
 
         Person p = ObjectifyService.ofy().load().type(Person.class).filter("email", email).first().now();
 
+        String saltedPwd = "";
+        if (p != null)
+            saltedPwd = Hashing.sha256().hashString(pwd + p.getSalt(), StandardCharsets.UTF_8).toString();
+
         // validate login
-        if(p != null && p.validatePwd(codedPwd)) {
+        if (p != null && p.validatePwd(saltedPwd)) {
             // TODO: add session to database
             CookieSetting cS = new CookieSetting(0, "sessionID", p.getId());
             this.getResponse().getCookieSettings().add(cS);
@@ -69,9 +72,9 @@ public class LoginResource extends ServerResource {
             jsonObject.addProperty("last_name", p.getLastName());
             jsonObject.addProperty("is_tutor", Boolean.toString(p instanceof Tutor));
             return new StringRepresentation(jsonObject.toString());
-        }else{
+        } else {
             jsonObject.addProperty("status", "ERROR");
-            jsonObject.addProperty("reason", "Either email or password is incorrect");        
+            jsonObject.addProperty("reason", "Either email or password is incorrect");
         }
         return new StringRepresentation(jsonObject.toString());
     }

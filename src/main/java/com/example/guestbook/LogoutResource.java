@@ -4,15 +4,35 @@ import com.google.gson.JsonObject;
 
 import org.restlet.data.Cookie;
 import org.restlet.data.CookieSetting;
+import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
+import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 import org.restlet.util.Series;
 
 public class LogoutResource extends ServerResource {
     @Get
     public StringRepresentation handle(Representation entity) {
+        JsonObject jsonObject = new JsonObject();
+        Series<Cookie> cookies = this.getRequest().getCookies();
+        Cookie cookie = cookies.getFirst("sessionID");
+
+        if (cookie != null) {
+            if (cookie.getValue() != null && cookie.getValue() != "") {
+                // TODO: if session expired
+            }
+        }
+
+        CookieSetting cS = new CookieSetting(0, "sessionID", null);
+        this.getResponse().getCookieSettings().add(cS);
+        this.getResponse().redirectSeeOther(this.getRequest().getHostRef());
+        return new StringRepresentation(jsonObject.toString());
+    }
+
+    @Post
+    public StringRepresentation post(Representation entity) {
         JsonObject jsonObject = new JsonObject();
         Series<Cookie> cookies = this.getRequest().getCookies();
         Cookie cookie = cookies.getFirst("sessionID");

@@ -14,17 +14,19 @@ public class Person{
     String lastName;
     String email;
     String pwd;
+    String salt;
     Date date;
 
     public Person(){
         this.date = new Date();
     }
 
-    public Person(String firstName, String lastName, String email, String pwd){
+    public Person(String firstName, String lastName, String email, String pwd, String salt){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.pwd = pwd;
+        this.salt = salt;
         this.date = new Date();
     }
 
@@ -42,5 +44,9 @@ public class Person{
 
     public String getLastName(){
         return this.lastName;
+    }
+
+    public String getSalt(){
+        return this.salt;
     }
 }

@@ -1,6 +1,9 @@
 package com.example.guestbook;
 
 import com.google.gson.JsonObject;
+
+import java.security.SecureRandom;
+
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import com.googlecode.objectify.ObjectifyService;
@@ -24,7 +27,13 @@ public class RegisterResource extends ServerResource {
             jsonObject.addProperty("reason", "Invalid email");
             return new StringRepresentation(jsonObject.toString());
         }
-        // TODO: already registered
+        // already registered
+        Person p = ObjectifyService.ofy().load().type(Person.class).filter("email", email).first().now();
+        if (p != null) {
+            jsonObject.addProperty("status", "ERROR");
+            jsonObject.addProperty("reason", "Your email address is already registered");
+            return new StringRepresentation(jsonObject.toString());
+        }
 
         String pwd = form.getFirstValue("password");
         // invalid password input
@@ -56,14 +65,18 @@ public class RegisterResource extends ServerResource {
         }
 
         // register new user into database
-        String codedPwd = Hashing.sha256().hashString(pwd, Charsets.UTF_8).toString();
+        SecureRandom random = new SecureRandom();
+        byte[] bSalt = new byte[24];
+        random.nextBytes(bSalt);
+        String salt = new String(bSalt);
+        String codedPwd = Hashing.sha256().hashString(pwd + salt, Charsets.UTF_8).toString();
         if (isTutor.equals("false")) {
-            Student student = new Student(firstName, lastName, email, codedPwd, groupName);
+            Student student = new Student(firstName, lastName, email, codedPwd, salt, groupName);
             ObjectifyService.ofy().save().entity(student).now();
             jsonObject.addProperty("status", "SUCCESS");
             jsonObject.addProperty("id", student.getId());
         } else if (isTutor.equals("true")) {
-            Tutor tutor = new Tutor(firstName, lastName, email, codedPwd);
+            Tutor tutor = new Tutor(firstName, lastName, email, codedPwd, salt);
             ObjectifyService.ofy().save().entity(tutor).now();
             jsonObject.addProperty("status", "SUCCESS");
             jsonObject.addProperty("id", tutor.getId());

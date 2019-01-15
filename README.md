@@ -7,12 +7,12 @@ ASE Project
 **[Login](#login)**  
 **[Logout](#logout)**  
 **[Show all attendance log](#show-all-attendance-log)**  
-**[Get token from server(JSON format)](#get-token-from-server(JSON-format))**  
-**[Get token from server(XML format)(not implemented yet)](#get-token-from-server(XML-format)(not-implemented-yet))**  
-**[Record attendance TUTOR(JSON format)](#record-attendance-TUTOR(JSON-format))**  
-**[Record attendance TUTOR(XML format)(not implemented yet)](#record-attendance-TUTOR(XML-format)(not-implemented-yet))**  
-**[Record attendance STUDENT(JSON format)](#record-attendance-STUDENT(JSON-format))**  
-**[Record attendance STUDENT(XML format)(not implemented yet)](#record-attendance-STUDENT(XML-format)(not-implemented-yet))**  
+**[Get token from server(JSON format)](#get-token-from-server(json-format))**  
+**[Get token from server(XML format)(not implemented yet)](#get-token-from-server(xml-format)(not-implemented-yet))**  
+**[Record attendance TUTOR(JSON format)](#record-attendance-tutor(json-format))**  
+**[Record attendance TUTOR(XML format)(not implemented yet)](#record-attendance-tutor(xml-format)(not-implemented-yet))**  
+**[Record attendance STUDENT(JSON format)](#record-attendance-student(jsonformat))**  
+**[Record attendance STUDENT(XML format)(not implemented yet)](#record-attendance-student(xml-format)(not-implemented-yet))**  
 **[Cloud messaging for android](#cloud-messaging-for-android)**  
 **[Claim(not implemented yet)](#claim(not-implemented-yet))**  
 **[Validation of missing attendance(not implemented yet)](#validation-of-missing-attendance(not-implemented-yet))**  
@@ -66,8 +66,12 @@ or
 ```
 ### Logout
 https://my-first-project-222110.appspot.com/rest/logout  
-Response
+**GET Method:**  
+Redirect to homepage
 
+**POST Method:**  
+No request element needed  
+Response
 ```JSON
 {
     "status" : "SUCCESS",

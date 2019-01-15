@@ -13,8 +13,8 @@ public class Tutor extends Person{
         this.date = new Date();
     }
 
-    public Tutor(String firstName, String lastName, String email, String pwd){
-        super(firstName, lastName, email, pwd);
+    public Tutor(String firstName, String lastName, String email, String pwd, String salt){
+        super(firstName, lastName, email, pwd, salt);
         session_id = UUID.randomUUID().toString();
     }
 

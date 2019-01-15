@@ -11,8 +11,8 @@ public class Student extends Person {
     int group;
     String[] tokens;
 
-    public Student(String firstName, String lastName, String email, String pwd, int group) {
-        super(firstName, lastName, email, pwd);
+    public Student(String firstName, String lastName, String email, String pwd, String salt, int group) {
+        super(firstName, lastName, email, pwd, salt);
         this.group = group;
         tokens = new String[12];
         for (int i = 0; i < 12; i++) {

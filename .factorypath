@@ -7,4 +7,5 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/restlet/gae/org.restlet/2.2-RC4/org.restlet-2.2-RC4.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/restlet/gae/org.restlet.ext.servlet/2.2-RC4/org.restlet.ext.servlet-2.2-RC4.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/webjars/jquery/3.2.1/jquery-3.2.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>

@@ -119,6 +119,4 @@ public class AttendanceLogResource extends ServerResource {
 
         return new StringRepresentation(jsonObject.toString());
     }
-
-    // TODO: another handle without post
 }
