@@ -7,15 +7,15 @@ ASE Project
 **[Login](#login)**  
 **[Logout](#logout)**  
 **[Show all attendance log](#show-all-attendance-log)**  
-**[Get token from server(JSON format)](#get-token-from-server(json-format))**  
-**[Get token from server(XML format)(not implemented yet)](#get-token-from-server(xml-format)(not-implemented-yet))**  
-**[Record attendance TUTOR(JSON format)](#record-attendance-tutor(json-format))**  
-**[Record attendance TUTOR(XML format)(not implemented yet)](#record-attendance-tutor(xml-format)(not-implemented-yet))**  
-**[Record attendance STUDENT(JSON format)](#record-attendance-student(jsonformat))**  
-**[Record attendance STUDENT(XML format)(not implemented yet)](#record-attendance-student(xml-format)(not-implemented-yet))**  
+**[Get token from server(JSON format)](#get-token-from-serverjson-format)**  
+**[Get token from server(XML format)(not implemented yet)](#get-token-from-serverxml-formatnot-implemented-yet)**  
+**[Record attendance TUTOR(JSON format)](#record-attendance-tutorjson-format)**  
+**[Record attendance TUTOR(XML format)(not implemented yet)](#record-attendance-tutorxml-formatnot-implemented-yet)**  
+**[Record attendance STUDENT(JSON format)](#record-attendance-studentjsonformat)**  
+**[Record attendance STUDENT(XML format)(not implemented yet)](#record-attendance-studentxml-formatnot-implemented-yet)**  
 **[Cloud messaging for android](#cloud-messaging-for-android)**  
-**[Claim(not implemented yet)](#claim(not-implemented-yet))**  
-**[Validation of missing attendance(not implemented yet)](#validation-of-missing-attendance(not-implemented-yet))**  
+**[Claim(not implemented yet)](#claimnot-implemented-yet)**  
+**[Validation of missing attendance(not implemented yet)](#validation-of-missing-attendancenot-implemented-yet)**  
 
 ### Register
 using POST method\
