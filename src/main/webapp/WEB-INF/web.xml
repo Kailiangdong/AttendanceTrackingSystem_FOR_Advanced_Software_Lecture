@@ -24,7 +24,7 @@
   </servlet-mapping>
 
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>login.html</welcome-file>
   </welcome-file-list>
 
   <!-- [START Objectify] -->
@@ -41,6 +41,7 @@
   </listener>
   <!-- [END Objectify] -->
 
+<<<<<<< 7b6ec452de5c8c918a8fdf88f2dad2663ba0cf7f
   <cookie>
     <key>cookie</key>
     <lifecycle></lifecycle>
@@ -50,4 +51,7 @@
     <decrypt>false</decrypt>
     <httpOnly>false</httpOnly>
   </cookie>
+=======
+
+>>>>>>> Notary
 </web-app>
