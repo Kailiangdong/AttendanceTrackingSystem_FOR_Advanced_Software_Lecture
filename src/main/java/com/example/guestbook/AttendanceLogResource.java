@@ -23,6 +23,7 @@ public class AttendanceLogResource extends ServerResource {
         if (cookie == null || cookie.getValue() == null) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Your session is expired. Please log in again");
+            return new StringRepresentation(jsonObject.toString());
         }
 
         String id = cookie.getValue();

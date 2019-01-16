@@ -7,12 +7,11 @@ ASE Project
 **[Login](#login)**  
 **[Logout](#logout)**  
 **[Show all attendance log](#show-all-attendance-log)**  
-**[Get token from server(JSON format)](#get-token-from-serverjson-format)**  
-**[Get token from server(XML format)(not implemented yet)](#get-token-from-serverxml-formatnot-implemented-yet)**  
+**[Get token from server](#get-token-from-server)**  
 **[Record attendance TUTOR(JSON format)](#record-attendance-tutorjson-format)**  
-**[Record attendance TUTOR(XML format)(not implemented yet)](#record-attendance-tutorxml-formatnot-implemented-yet)**  
+**[Record attendance TUTOR(XML format)(not implemented yet)](#record-attendance-tutorxml-formatignored)**  
 **[Record attendance STUDENT(JSON format)](#record-attendance-studentjsonformat)**  
-**[Record attendance STUDENT(XML format)(not implemented yet)](#record-attendance-studentxml-formatnot-implemented-yet)**  
+**[Record attendance STUDENT(XML format)(not implemented yet)](#record-attendance-studentxml-format)**  
 **[Cloud messaging for android](#cloud-messaging-for-android)**  
 **[Claim(not implemented yet)](#claimnot-implemented-yet)**  
 **[Validation of missing attendance(not implemented yet)](#validation-of-missing-attendancenot-implemented-yet)**  
@@ -111,7 +110,7 @@ Response
 }
 ```
 
-### Get token from server(JSON format):
+### Get token from server:
 using GET method\
 https://my-first-project-222110.appspot.com/rest/attendance/get/json  
 Response
@@ -143,17 +142,6 @@ or
 }
 ```
 
-### Get token from server(XML format)(not implemented yet):
-using GET method\
-~~https://my-first-project-222110.appspot.com/rest/attendance/get/xml?student_id=your_student_id&week_num=this_week_number~~  
-Response:
-```XML
-<authentification>
-    <status>SUCCESS</status>
-    <token>1234567891011</token>
-</authentification>
-```
-
 ### Record attendance TUTOR(JSON format):
 Only tutors are allowed to use this endpoint(credential id will be checked)
 
@@ -174,7 +162,7 @@ Response:
 }
 ```
 
-### Record attendance TUTOR(XML format)(not implemented yet):
+### Record attendance TUTOR(XML format)(ignored):
 Using POST method:\
 ~~https://my-first-project-222110.appspot.com/rest/attendance/record/xml~~  
 POST element:\
@@ -210,12 +198,18 @@ Response:
     "reason" : "Token used before",
 }
 ```
-### Record attendance STUDENT(XML format)(not implemented yet):
+### Record attendance STUDENT(XML format):
 Using POST method:\
-~~https://my-first-project-222110.appspot.com/rest/attendance/post/xml~~  
+https://my-first-project-222110.appspot.com/rest/attendance/post/xml  
 POST element:\
-~~student_id=your_student_id&\
-token=your_token~~
+```XML
+<record>
+    <student_id>stu_id</student_id>
+    <token>stu_token</token>
+    <group>[1-6]</group>
+    <week>[1-12]</week>
+</record>
+```
 
 Response:
 ```XML
