@@ -157,8 +157,8 @@
                 <configuration>
                     <enableJarClasses>false</enableJarClasses>
                     <!-- Comment in the below snippet to bind to all IPs instead of just localhost -->
-                    <devserver.address>0.0.0.0</devserver.address>
-                    <devserver.port>8080</devserver.port>
+                    <address>0.0.0.0</address>
+                    <port>8080</port>
                     <deploy.appId>my-first-project-222110</deploy.appId>
                     <version>1</version>
                     <deploy.fullScanSeconds>1</deploy.fullScanSeconds>

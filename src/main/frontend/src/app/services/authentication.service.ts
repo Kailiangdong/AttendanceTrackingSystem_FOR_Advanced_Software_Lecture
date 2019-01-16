@@ -15,9 +15,9 @@ export class AuthenticationService {
 
     login(email: string, password: string) {
         let text = "email="+email+"&password="+password
-        return this.http.post(`https://my-first-project-222110.appspot.com/rest/login`, text)
+        return this.http.post(`/rest/login`, text)
     }
     logout() {
-        return this.http.get(`https://my-first-project-222110.appspot.com/rest/logout`)
+        return this.http.get(`/rest/logout`)
     }
 }

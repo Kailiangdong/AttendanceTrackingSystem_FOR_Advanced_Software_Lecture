@@ -41,18 +41,11 @@
   </listener>
   <!-- [END Objectify] -->
 
-  <session>
-    <key>sessionID</key>
-    <cookiekey>sessionID</cookiekey>
-    <lifecycle>9000</lifecycle>
-    <base64>true</base64>
-  </session>
-
   <cookie>
     <key>cookie</key>
     <lifecycle></lifecycle>
     <type>1</type>
-    <path>/wp</path>
+    <path>/</path>
     <domain>my-first-project-222110.appspot.com</domain>
     <decrypt>false</decrypt>
     <httpOnly>false</httpOnly>

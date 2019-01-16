@@ -65,7 +65,9 @@ public class LoginResource extends ServerResource {
         if (p != null && p.validatePwd(saltedPwd)) {
             // TODO: add session to database
             CookieSetting cS = new CookieSetting(0, "sessionID", p.getId());
+            CookieSetting cS2 = new CookieSetting(0, "Path", "/");
             this.getResponse().getCookieSettings().add(cS);
+            this.getResponse().getCookieSettings().add(cS2);
             jsonObject.addProperty("status", "SUCCESS");
             jsonObject.addProperty("id", p.getId());
             jsonObject.addProperty("first_name", p.getFirstName());

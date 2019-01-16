@@ -52,7 +52,7 @@ public class FirstStepsApplication extends Application {
         router.attach("/attendance/log", AttendanceLogResource.class);
         router.attach("/attendance/get/json", GetTokenJsonResource.class);
         router.attach("/attendance/get/xml", GetTokenXmlResource.class);
-        router.attach("/attendance/record/xml", AttendanceResource.class);
+        router.attach("/attendance/record/xml", AttendanceXmlResource.class);
         router.attach("/attendance/post/json", ReadTokenJsonResource.class);
         router.attach("/attendance/post/xml", ReadTokenXmlResource.class);
         router.attach("/validate", ValidateResource.class);

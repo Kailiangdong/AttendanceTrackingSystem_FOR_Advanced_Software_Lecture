@@ -15,10 +15,10 @@ export class UserService {
     // }
 
     register(user: User) {
-        return this.http.post(`https://my-first-project-222110.appspot.com/rest/register`, user);
+        return this.http.post(`/rest/register`, user);
     }
     qrcode() {
-        return this.http.get(`https://my-first-project-222110.appspot.com/rest/attendance/get/json`);
+        return this.http.get(`/rest/attendance/get/json`);
     }
 
     // update(user: User) {
