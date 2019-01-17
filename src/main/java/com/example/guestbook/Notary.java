@@ -9,8 +9,10 @@ public class Notary {
 	
 	public Notary() {
 		Random r = new Random();
+		// Initial seed
 		double h_0 = r.nextDouble();
 		attendance_database.add(h_0);
+		
 		
 	}
 }
