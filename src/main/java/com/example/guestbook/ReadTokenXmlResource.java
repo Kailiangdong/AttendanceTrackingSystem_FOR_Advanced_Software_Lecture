@@ -15,7 +15,7 @@ import org.restlet.ext.xml.NodeList;
 public class ReadTokenXmlResource extends ServerResource{
     @Post
     public StringRepresentation handle(DomRepresentation entity) {
-        String result = "<Attendance>";
+        String result = "<attendance>";
         NodeList nodes = entity.getNodes("record");
         if (nodes == null || nodes.isEmpty()) {
             result += "<status>ERROR</status>";
@@ -23,7 +23,7 @@ public class ReadTokenXmlResource extends ServerResource{
             result += "</attendance>";
             return new StringRepresentation(result);
         }
-        try {
+        // try {
             Iterator<Node> itr = nodes.iterator();
             if (!itr.hasNext()) {
                 result += "<status>ERROR</status>";
@@ -112,16 +112,27 @@ public class ReadTokenXmlResource extends ServerResource{
                 return new StringRepresentation(result);
             }
 
+            Attendance a = ObjectifyService.ofy().load().type(Attendance.class).filter("token", token).first().now();
+            if (a != null) {
+                result += "<status>ERROR</status>";
+                result += "<reason>Token used before</reason>";
+                result += "</attendance>";
+                return new StringRepresentation(result);
+            }
+    
+            Attendance aNew = new Attendance(token, student_id, group, week, true);
+            ObjectifyService.ofy().save().entity(aNew);
+
             result += "<status>SUCCESS</status>";
             result += "<reason></reason>";
             result += "</attendance>";
             return new StringRepresentation(result);
 
-        } catch (Exception e) {
-            result += "<status>ERROR</status>";
-            result += "<reason>Error detected, please contact developer</reason>";
-            result += "</attendance>";
-            return new StringRepresentation(result);
-        }
+        // } catch (Exception e) {
+        //     result += "<status>ERROR</status>";
+        //     result += "<reason>Error detected, please contact developer</reason>";
+        //     result += "</attendance>";
+        //     return new StringRepresentation(result);
+        // }
     }
 }
