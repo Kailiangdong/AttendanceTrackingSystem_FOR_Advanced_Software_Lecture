@@ -18,6 +18,6 @@ export class AuthenticationService {
         return this.http.post(`https://my-first-project-222110.appspot.com/rest/login`, text)
     }
     logout() {
-        return this.http.get(`https://my-first-project-222110.appspot.com/rest/logout`)
+        return this.http.post(`https://my-first-project-222110.appspot.com/rest/logout`,null)
     }
 }

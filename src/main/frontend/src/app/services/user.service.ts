@@ -1,6 +1,43 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../models';
+import { Attendance } from '../models/attendance';
+//import { User } from '../models';
+const attendance = {
+	"status" : "SUCCESS",
+	"attendance_log" : [
+        {
+            "student_id" : "1234",
+            "first_name" : "kailiang",
+            "last_name" : "dong",
+            "group" : "6",
+            "week_num" : "2",
+        },{
+            "student_id" : "1234",
+            "first_name" : "kailiang",
+            "last_name" : "dong",
+            "group" : "6",
+            "week_num" : "3",
+        },{
+            "student_id" : "1234",
+            "first_name" : "kailiang",
+            "last_name" : "dong",
+            "group" : "6",
+            "week_num" : "6",
+        },{
+            "student_id" : "1234",
+            "first_name" : "kailiang",
+            "last_name" : "dong",
+            "group" : "6",
+            "week_num" : "9",
+        },{
+            "student_id" : "1234",
+            "first_name" : "kailiang",
+            "last_name" : "dong",
+            "group" : "6",
+            "week_num" : "12",
+        }        
+    ]
+}
 
 @Injectable()
 export class UserService {
@@ -14,13 +51,19 @@ export class UserService {
     //     return this.http.get(`${config.apiUrl}/users/` + id);
     // }
 
-    register(user: User) {
-        return this.http.post(`https://my-first-project-222110.appspot.com/rest/register`, user);
-    }
     qrcode() {
         return this.http.get(`https://my-first-project-222110.appspot.com/rest/attendance/get/json`);
     }
-
+    getList(group: string, week: string){
+        let text 
+        if(group || week ){
+            text = "group="+group+"&week="+week
+        }else{
+            text = null
+        }
+        //return attendance
+        return this.http.post(`https://my-first-project-222110.appspot.com/rest/attendance/log`, text);
+    }
     // update(user: User) {
     //     return this.http.put(`${config.apiUrl}/users/` + user.id, user);
     // }

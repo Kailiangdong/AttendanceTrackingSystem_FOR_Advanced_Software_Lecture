@@ -48,8 +48,14 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                  resp => {
-                    if(resp["status"] =="SUCCESS")
-                        this.router.navigate(['/studenthome']);
+                    if(resp["status"] =="SUCCESS"){
+                        if(resp["is_tutor"] =="false"){
+                            this.router.navigate(['/studenthome']);
+                        }else{
+                            this.router.navigate(['/tutorhome']);
+                        }
+                    }
+                        
                 }
             )
     }
