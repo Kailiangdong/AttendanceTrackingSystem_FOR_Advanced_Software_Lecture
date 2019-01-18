@@ -14,7 +14,8 @@ export class AppComponent {
   logout() {
     this.authenticationService.logout().subscribe(
       resp => {
-         if(resp["status"] =="SUCCESS"){
+        console.log(resp)
+        if(resp["status"] =="SUCCESS"){
             this.router.navigate(['/login']);
          }
       }

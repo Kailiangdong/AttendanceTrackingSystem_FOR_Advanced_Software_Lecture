@@ -54,15 +54,12 @@ export class UserService {
     qrcode() {
         return this.http.get(`/rest/attendance/get/json`);
     }
-    getList(group: string, week: string){
-        let text 
-        if(group || week ){
-            text = "group="+group+"&week="+week
-        }else{
-            text = null
-        }
-        //return attendance
+    getListFromTutor(group: string, week: string){
+        let text = "group="+group+"&week="+week
         return this.http.post(`/rest/attendance/log`, text);
+    }
+    getListFromStudent(){
+        return this.http.post(`/rest/attendance/log`, null);
     }
     // update(user: User) {
     //     return this.http.put(`${config.apiUrl}/users/` + user.id, user);

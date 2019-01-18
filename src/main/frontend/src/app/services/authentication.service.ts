@@ -18,6 +18,6 @@ export class AuthenticationService {
         return this.http.post(`/rest/login`, text)
     }
     logout() {
-        return this.http.get(`/rest/logout`,null)
+        return this.http.post(`/rest/logout`,null)
     }
 }

@@ -14,7 +14,7 @@ export interface DialogData {
   templateUrl: './studenthome.component.html',
   styleUrls: ['./studenthome.component.css']
 })
-export class StudenthomeComponent {
+export class StudenthomeComponent implements OnInit{
   
   // list of attendance that will be displayed in the table
   attendances : Attendance[] = [];
@@ -34,10 +34,14 @@ export class StudenthomeComponent {
   name: string;
   constructor(public dialog: MatDialog,private userService: UserService) {}
   ngOnInit(): void {
-    this.userService.getList(null,null).subscribe(resp => this.attendances = resp['attendance_log']);
-    //this.attendances = this.userService.getList(null,null)['attendance_log']
-  }
-
+    console.log("print it ")
+    this.userService.getListFromStudent().subscribe(
+      resp => {
+        console.log(resp)
+        this.attendances = resp['attandance_log']
+        console.log(resp['attandance_log'])
+      })
+    }
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
@@ -66,7 +70,6 @@ export class DialogOverviewExampleDialog {
            this.myAngularxQrCode = JSON.stringify(resp)
           }
         )
-      //this.myAngularxQrCode = "kailiang Dong"
     }
   onNoClick(): void {
     this.dialogRef.close();
