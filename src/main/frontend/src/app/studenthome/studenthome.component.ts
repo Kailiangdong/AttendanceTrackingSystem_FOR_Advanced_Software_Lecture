@@ -1,9 +1,8 @@
 import { Component, OnInit ,Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { UserService } from '../services';
-
+import { Attendance } from '../models';
 export interface DialogData {
-  animal: string;
   name: string;
 }
 
@@ -18,31 +17,35 @@ export interface DialogData {
 export class StudenthomeComponent {
   
   // list of attendance that will be displayed in the table
-  //attendances: Attendance[] = [];
+  attendances : Attendance[] = [];
+  // list of users that will be displayed in the table
+  first_name: string;
+  last_name: string;
+  group: string;
+  week_num: string;
   // list of columns that will be displayed in the table
   displayedColumns: string[] = [
-      'firstName',
-      'lastName',
-      'week',
-      'attendance'
+      'first_name',
+      'last_name',
+      'group',
+      'week_num'
   ];
 
-  animal: string;
   name: string;
-  constructor(public dialog: MatDialog,/*private attendanceService: AttendanceService*/) {}
+  constructor(public dialog: MatDialog,private userService: UserService) {}
   ngOnInit(): void {
-    //this.attendanceService.getList().subscribe(resp => this.attendances = resp);
+    this.userService.getList(null,null).subscribe(resp => this.attendances = resp['attendance_log']);
+    //this.attendances = this.userService.getList(null,null)['attendance_log']
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
-      data: {name: this.name, animal: this.animal}
+      data: {name: this.name}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
     });
   }
 
@@ -60,12 +63,11 @@ export class DialogOverviewExampleDialog {
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
       this.userService.qrcode().subscribe(
         resp => {
-           console.log(resp)
-       }
-   )
-      this.myAngularxQrCode = 'Your QR code data string';
+           this.myAngularxQrCode = JSON.stringify(resp)
+          }
+        )
+      //this.myAngularxQrCode = "kailiang Dong"
     }
-    
   onNoClick(): void {
     this.dialogRef.close();
   }
