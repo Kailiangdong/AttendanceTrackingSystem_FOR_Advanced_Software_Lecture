@@ -12,17 +12,34 @@ import org.restlet.resource.ServerResource;
 import org.restlet.util.Series;
 
 public class AttendanceResource extends ServerResource {
+    /**
+     * site: /rest/attendance/record/json
+     * Interface for recording attendance done by tutor
+     * need Cookies
+     * 
+     * 
+     * @param entity
+     * @return
+     */
     @Post
     public StringRepresentation handle(Representation entity) {
         JsonObject jsonObject = new JsonObject();
         Series<Cookie> cookies = this.getRequest().getCookies();
         Cookie cookie = cookies.getFirst("sessionID");
+        String id;
         if (cookie == null || cookie.getValue() == null) {
+            // User is not logged in
+            Form form = new Form(entity); // only for debug
+            id = form.getFirstValue("id"); // only for debug
+            if (id == null || id.equals("")) { // only for debug
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Your session is expired. Please log in again");
+            return new StringRepresentation(jsonObject.toString());
+            }
+        }else{
+            id = cookie.getValue();
         }
 
-        String id = cookie.getValue();
         Long lID;
         try {
             lID = Long.parseLong(id);

@@ -15,18 +15,36 @@ import org.restlet.resource.ServerResource;
 import org.restlet.util.Series;
 
 public class AttendanceLogResource extends ServerResource {
+    /**
+     * site: /rest/attendance/log Interface for receiving attendance log need
+     * Cookies
+     * 
+     * Validate user login state via Cookies if user is a student, return his/her
+     * attendance log If user is a tutor, check request inputs(group and week)
+     * return selected attendance log
+     * 
+     * @param entity request input
+     * @return json format response
+     */
     @Post
     public StringRepresentation handle(Representation entity) {
         JsonObject jsonObject = new JsonObject();
         Series<Cookie> cookies = this.getRequest().getCookies();
         Cookie cookie = cookies.getFirst("sessionID");
+        String id;
         if (cookie == null || cookie.getValue() == null) {
-            jsonObject.addProperty("status", "ERROR");
-            jsonObject.addProperty("reason", "Your session is expired. Please log in again");
-            return new StringRepresentation(jsonObject.toString());
+            // User is not logged in
+            Form form = new Form(entity); // only for debug
+            id = form.getFirstValue("student_id"); // only for debug
+            if (id == null || id.equals("")) { // only for debug
+                jsonObject.addProperty("status", "ERROR");
+                jsonObject.addProperty("reason", "Your session is expired. Please log in again");
+                return new StringRepresentation(jsonObject.toString());
+            }
+        } else {
+            id = cookie.getValue();
         }
 
-        String id = cookie.getValue();
         Long lID;
         try {
             lID = Long.parseLong(id);
@@ -35,15 +53,18 @@ public class AttendanceLogResource extends ServerResource {
             jsonObject.addProperty("reason", "Please contact to developer");
             return new StringRepresentation(jsonObject.toString());
         }
-        
+
         Person p = ObjectifyService.ofy().load().type(Person.class).id(lID).now();
         if (p == null) {
+            //user not found
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Undefined person");
+            return new StringRepresentation(jsonObject.toString());
         }
 
         JsonArray jsonArray = new JsonArray();
         if (p instanceof Student) {
+            // user is a student, return his/her attendance log
             List<Attendance> attendances = ObjectifyService.ofy().load().type(Attendance.class).filter("student_id", id)
                     .list();
             for (Attendance a : attendances) {
@@ -56,6 +77,7 @@ public class AttendanceLogResource extends ServerResource {
                 jsonArray.add(jsonObject2);
             }
         } else {
+            // user is a tutor
             Form form = new Form(entity);
             String group = form.getFirstValue("group");
             String week = form.getFirstValue("week");

@@ -15,6 +15,15 @@ import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
 public class RegisterResource extends ServerResource {
+    /**
+     * site: /rest/register
+     * Interface for registration
+     * 
+     * Validates request elements(email, password, name, group name and is_tutor variable)
+     * register new user into database
+     * @param entity Request input
+     * @return json format response
+     */
     @Post
     public StringRepresentation handle(Representation entity) {
         JsonObject jsonObject = new JsonObject();
@@ -27,7 +36,7 @@ public class RegisterResource extends ServerResource {
             jsonObject.addProperty("reason", "Invalid email");
             return new StringRepresentation(jsonObject.toString());
         }
-        // already registered
+        // check if email address is already registered
         Person p = ObjectifyService.ofy().load().type(Person.class).filter("email", email).first().now();
         if (p != null) {
             jsonObject.addProperty("status", "ERROR");

@@ -9,9 +9,9 @@ ASE Project
 **[Show all attendance log](#show-all-attendance-log)**  
 **[Get token from server](#get-token-from-server)**  
 **[Record attendance TUTOR(JSON format)](#record-attendance-tutorjson-format)**  
-**[Record attendance TUTOR(XML format)(not implemented yet)](#record-attendance-tutorxml-formatignored)**  
-**[Record attendance STUDENT(JSON format)](#record-attendance-studentjsonformat)**  
-**[Record attendance STUDENT(XML format)(not implemented yet)](#record-attendance-studentxml-format)**  
+**[Record attendance TUTOR(XML format)(ignored)](#record-attendance-tutorxml-formatignored)**  
+**[Record attendance STUDENT(JSON format)(deprecated)](#record-attendance-studentjson-formatdeprecated)**  
+**[Record attendance STUDENT(XML format)](#record-attendance-studentxml-format)**  
 **[Cloud messaging for android](#cloud-messaging-for-android)**  
 **[Claim(not implemented yet)](#claimnot-implemented-yet)**  
 **[Validation of missing attendance(not implemented yet)](#validation-of-missing-attendancenot-implemented-yet)**  
@@ -86,7 +86,8 @@ POST element:
 group=selected_group_id/all&  
 week=selected_week/all  
 **for STUDENT:**  
-No request element needed
+No request element needed  
+**DEBUG**: student_id=your_student_id
 
 Response
 ```JSON
@@ -113,6 +114,8 @@ Response
 ### Get token from server:
 using GET method\
 https://my-first-project-222110.appspot.com/rest/attendance/get/json  
+**DEBUG**:  
+https://my-first-project-222110.appspot.com/rest/attendance/get/json?student_id=your_student_id  
 Response
 
 ```JSON
@@ -152,7 +155,8 @@ token=stud_token&\
 student_id=stud_student_id&\
 group=this_group&\
 week=this_week&\
-presented=true/false
+presented=true/false  
+**DEBUG**:&id=your_id
 
 Response:
 ```JSON
@@ -181,15 +185,15 @@ Response:
 </attendance>
 ```
 
-### Record attendance STUDENT(JSON format):
+### Record attendance STUDENT(JSON format)(deprecated):
 Using POST method:\
-https://my-first-project-222110.appspot.com/rest/attendance/post/json  
+~~https://my-first-project-222110.appspot.com/rest/attendance/post/json~~  
 POST element:\
-token=stud_token&\
+~~token=stud_token&\
 student_id=stud_student_id&\
 group=this_group&\
 week=this_week&\
-presented=true/false
+presented=true/false~~
 
 Response:
 ```JSON

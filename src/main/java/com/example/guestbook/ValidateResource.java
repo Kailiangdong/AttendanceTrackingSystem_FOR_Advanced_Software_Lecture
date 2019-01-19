@@ -7,6 +7,11 @@ import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
 public class ValidateResource extends ServerResource{
+    /**
+     * site: /rest/validate
+     * @param entity
+     * @return
+     */
     @Get
     public StringRepresentation handle(Representation entity) {
         Form form = new Form(entity);  

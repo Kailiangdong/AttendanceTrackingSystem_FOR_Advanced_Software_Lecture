@@ -13,6 +13,11 @@ import org.restlet.ext.xml.DomRepresentation;
 import org.restlet.ext.xml.NodeList;
 
 public class AttendanceXmlResource extends ServerResource {
+    /**
+     * site: /rest/attendance/record/xml
+     * @param entity
+     * @return
+     */
     @Post
     public StringRepresentation handle(DomRepresentation entity) {
         String result = "<Attendance>";

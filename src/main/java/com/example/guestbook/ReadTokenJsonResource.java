@@ -10,6 +10,11 @@ import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
 public class ReadTokenJsonResource extends ServerResource{
+    /**
+     * site: /rest/attendance/post/json
+     * @param entity
+     * @return
+     */
     @Post
     public StringRepresentation handle(Representation entity) {
         JsonObject jsonObject = new JsonObject();

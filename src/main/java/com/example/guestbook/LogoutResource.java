@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 
 import org.restlet.data.Cookie;
 import org.restlet.data.CookieSetting;
-import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
@@ -13,6 +12,15 @@ import org.restlet.resource.ServerResource;
 import org.restlet.util.Series;
 
 public class LogoutResource extends ServerResource {
+    /**
+     * site: /rest/logout
+     * Interface for logout, using GET method
+     * 
+     * Validate user state via Cookies
+     * redirect user to home page
+     * @param entity request input
+     * @return null
+     */
     @Get
     public StringRepresentation handle(Representation entity) {
         JsonObject jsonObject = new JsonObject();
@@ -31,6 +39,15 @@ public class LogoutResource extends ServerResource {
         return new StringRepresentation(jsonObject.toString());
     }
 
+    /**
+     * site: /rest/logout
+     * Interface for logout, using POST method
+     * 
+     * Validate user state via Cookies
+     * 
+     * @param entity request elements
+     * @return json format resposne
+     */
     @Post
     public StringRepresentation post(Representation entity) {
         JsonObject jsonObject = new JsonObject();

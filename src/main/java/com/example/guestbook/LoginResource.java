@@ -16,14 +16,27 @@ import org.restlet.resource.ServerResource;
 import org.restlet.util.Series;
 
 public class LoginResource extends ServerResource {
+    /**
+     * site: /rest/login
+     * Interface for login, using POST method
+     * need Cookies
+     * 
+     * Validate user state via Cookies
+     * Validate request elements(email, password)
+     * set Cookies
+     * 
+     * @param entity request input
+     * @return json format response
+     */
     @Post
     public StringRepresentation handle(Representation entity) {
         JsonObject jsonObject = new JsonObject();
         Series<Cookie> cookies = this.getRequest().getCookies();
         Cookie cookie = cookies.getFirst("sessionID");
-        // TODO: if session expired
+        // Check if user allready logged in
         if (cookie != null) {
             if (cookie.getValue() != null && !cookie.getValue().equals("")) {
+                // TODO: check if session is expired
                 jsonObject.addProperty("status", "SUCCESS");
                 String id = cookie.getValue();
                 jsonObject.addProperty("id", id);
@@ -40,7 +53,7 @@ public class LoginResource extends ServerResource {
         Form form = new Form(entity);
 
         String email = form.getFirstValue("email");
-        // invalid email input
+        // validate email input
         if (!ValidateFunc.validateEmail(email)) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Either email or password is incorrect");
@@ -48,7 +61,7 @@ public class LoginResource extends ServerResource {
         }
 
         String pwd = form.getFirstValue("password");
-        // invalid password input
+        // validate password input
         if (!ValidateFunc.validatePwd(pwd)) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Either email or password is incorrect");

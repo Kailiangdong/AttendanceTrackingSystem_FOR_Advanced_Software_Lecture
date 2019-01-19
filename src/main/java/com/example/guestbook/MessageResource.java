@@ -13,6 +13,11 @@ import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
 public class MessageResource extends ServerResource{
+    /**
+     * site: /rest/message
+     * @param entity
+     * @return
+     */
     @Get
     public StringRepresentation handle(Representation entity) {
         JsonObject jsonObject = new JsonObject();
