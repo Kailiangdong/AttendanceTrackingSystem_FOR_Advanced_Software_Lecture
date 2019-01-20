@@ -80,7 +80,7 @@ public class ReadTokenJsonResource extends ServerResource{
             return new StringRepresentation(jsonObject.toString());
         }
 
-        if(!presented.equals("false") || !presented.equals("true")){
+        if(!presented.equals("false") && !presented.equals("true")){
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Invalid input");
             return new StringRepresentation(jsonObject.toString());

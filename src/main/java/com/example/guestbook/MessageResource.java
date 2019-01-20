@@ -1,5 +1,9 @@
 package com.example.guestbook;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gson.JsonArray;
@@ -21,9 +25,9 @@ public class MessageResource extends ServerResource{
     @Get
     public StringRepresentation handle(Representation entity) {
         JsonObject jsonObject = new JsonObject();
-        Form form = new Form(entity);  
-        String student_id = form.getFirstValue("student_id");  
-        String date = form.getFirstValue("date");
+        // Form form = new Form(entity);  
+        String student_id = getQueryValue("student_id");
+        String date = getQueryValue("date");
         Long slID;
         try {
             slID = Long.parseLong(student_id);
@@ -41,7 +45,22 @@ public class MessageResource extends ServerResource{
             return new StringRepresentation(jsonObject.toString());
         }
         int group = s.getGroup();
-        List<Attendance> attendances = ObjectifyService.ofy().load().type(Attendance.class).filter("tutorial_group_id", "" + group).filter("date >", date).list();
+        // List<Attendance> attendances = ObjectifyService.ofy().load().type(Attendance.class).filter("tutorial_group_id", "" + group).filter("date >", date).list();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dDate;
+        try {
+            dDate = dateFormat.parse(date);
+        } catch (ParseException e) {
+            //TODO: handle exception
+            jsonObject.addProperty("status", "ERROR");
+            jsonObject.addProperty("reason", "Format date error: " + date);
+            return new StringRepresentation(jsonObject.toString());
+        } catch (NullPointerException e){
+            jsonObject.addProperty("status", "ERROR");
+            jsonObject.addProperty("reason", "Please give a date");
+            return new StringRepresentation(jsonObject.toString());
+        }
+        List<Attendance> attendances = ObjectifyService.ofy().load().type(Attendance.class).filter("date >", dDate).list();
         if(!attendances.isEmpty()){
             JsonArray jsonArray = new JsonArray();
             for(Attendance a : attendances){
@@ -74,6 +93,8 @@ public class MessageResource extends ServerResource{
             //     // nothing to update
             //     jsonObject.addProperty("status", "SUCCESS");
             // }
+            jsonObject.addProperty("status", "NEW_VALIDATION");
+            jsonObject.addProperty("validate", "null");
         }
  
         return new StringRepresentation(jsonObject.toString()) ; 
