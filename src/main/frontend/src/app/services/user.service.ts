@@ -1,43 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Attendance } from '../models/attendance';
-//import { User } from '../models';
-const attendance = {
-	"status" : "SUCCESS",
-	"attendance_log" : [
-        {
-            "student_id" : "1234",
-            "first_name" : "kailiang",
-            "last_name" : "dong",
-            "group" : "6",
-            "week_num" : "2",
-        },{
-            "student_id" : "1234",
-            "first_name" : "kailiang",
-            "last_name" : "dong",
-            "group" : "6",
-            "week_num" : "3",
-        },{
-            "student_id" : "1234",
-            "first_name" : "kailiang",
-            "last_name" : "dong",
-            "group" : "6",
-            "week_num" : "6",
-        },{
-            "student_id" : "1234",
-            "first_name" : "kailiang",
-            "last_name" : "dong",
-            "group" : "6",
-            "week_num" : "9",
-        },{
-            "student_id" : "1234",
-            "first_name" : "kailiang",
-            "last_name" : "dong",
-            "group" : "6",
-            "week_num" : "12",
-        }        
-    ]
-}
+import { Newattendance } from '../models/';
 
 @Injectable()
 export class UserService {
@@ -60,6 +24,9 @@ export class UserService {
     }
     getListFromStudent(){
         return this.http.post(`/rest/attendance/log`, null);
+    }
+    create(newattendance: Newattendance) {
+        return this.http.post(`rest/attendance/record/json`, newattendance);
     }
     // update(user: User) {
     //     return this.http.put(`${config.apiUrl}/users/` + user.id, user);

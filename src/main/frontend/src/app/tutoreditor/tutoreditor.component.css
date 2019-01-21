@@ -1,0 +1,42 @@
+.attendance-form-container {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 40px 15px 0;
+}
+
+.attendance-form-container > * {
+    width: 100%;
+}
+
+.checkbox-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 10px;
+}
+
+.checkbox-margin {
+    margin: 0 10px 0 0;
+}
+
+.submit-button {
+    margin-left: 5px;
+}
+
+
+.attendance-form-footer {
+    margin-top: 20px;
+}
+
+.attendance-form-footer button {
+    float: right;
+    margin: 5px 5px 0 5px;
+}
+
+.attendance-form-title {
+    margin-bottom: 10px;
+}
+
+mat-form-field {
+    width: 100%;
+}
