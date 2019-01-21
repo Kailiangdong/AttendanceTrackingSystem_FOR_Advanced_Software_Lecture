@@ -1,25 +1,56 @@
 package com.example.guestbook;
 
 import java.util.Date;
+import java.util.UUID;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Subclass;
 
-@Entity
-@Index
-public class Student{
-    @Id public Long id;
-    public String nickname;
-    public String groupname;
-    Date date;
+@Subclass(index = true)
+public class Student extends Person {
 
-    public Student(String name, String groupName){
-        this.nickname = name;
-        this.groupname = groupName;
+    int group;
+    String[] tokens;
+
+    public Student(String firstName, String lastName, String email, String pwd, String salt, int group) {
+        super(firstName, lastName, email, pwd, salt);
+        this.group = group;
+        tokens = new String[12];
+        for (int i = 0; i < 12; i++) {
+            // Generates random token id
+            String uniqueID = UUID.randomUUID().toString();
+            boolean same = false;
+            for(int j = 0; j < i; j++){
+                if(uniqueID.equals(tokens[j])){
+                    same = true;
+                    i--;
+                    break;
+                }
+            }
+            if(!same) tokens[i] = uniqueID;
+        }
     }
 
-    public Student(){
+    public Student() {
         this.date = new Date();
+    }
+
+    public String[] getTokens(){
+        return tokens;
+    }
+
+    public String getToken(int week){
+        return tokens[week];
+    }
+
+    public int getGroup(){
+        return group;
+    }
+
+    public void setGroup(int group){
+        this.group = group;
+    }
+
+    public boolean validateToken(String token, int week){
+        return token.equals(tokens[week - 1]);
     }
 }
