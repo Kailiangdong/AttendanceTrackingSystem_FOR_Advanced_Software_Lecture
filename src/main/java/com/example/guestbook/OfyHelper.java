@@ -16,19 +16,28 @@
 //[START all]
 package com.example.guestbook;
 
+import com.google.cloud.datastore.DatastoreOptions;
+import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletContextEvent;
 
 /**
- * OfyHelper, a ServletContextListener, is setup in web.xml to run before a JSP is run.  This is
- * required to let JSP's access Ofy.
+ * OfyHelper, a ServletContextListener, is setup in web.xml to run before a JSP
+ * is run. This is required to let JSP's access Ofy.
  **/
 public class OfyHelper implements ServletContextListener {
   public void contextInitialized(ServletContextEvent event) {
-    // This will be invoked as part of a warmup request, or the first user request if no warmup
+    // This will be invoked as part of a warmup request, or the first user request
+    // if no warmup
     // request.
+    // Initialization required for objectify version >= 6.0
+    // for WEBSERVER
+    ObjectifyService.init();
+    // for LOCAL SERVER
+    // ObjectifyService.init(new ObjectifyFactory(DatastoreOptions.newBuilder().setHost("http://localhost:8081")
+    //     .setProjectId("my-project").build().getService()));
     ObjectifyService.register(Person.class);
     ObjectifyService.register(Tutor.class);
     ObjectifyService.register(Attendance.class);
@@ -40,4 +49,4 @@ public class OfyHelper implements ServletContextListener {
     // App Engine does not currently invoke this method.
   }
 }
-//[END all]
+// [END all]
