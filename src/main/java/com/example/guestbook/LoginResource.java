@@ -36,12 +36,25 @@ public class LoginResource extends ServerResource {
         // Check if user allready logged in
         if (cookie != null) {
             if (cookie.getValue() != null && !cookie.getValue().equals("")) {
-                // TODO: check if session is expired
-                jsonObject.addProperty("status", "SUCCESS");
+                // TODO: check if session is expired       
                 String id = cookie.getValue();
                 jsonObject.addProperty("id", id);
-                Long lID = Long.parseLong(id);
+                Long lID;
+                try {
+                    lID = Long.parseLong(id);
+                } catch (NumberFormatException e) {
+                    jsonObject.addProperty("status", "ERROR");
+                    jsonObject.addProperty("reason", "Please contact to developer, Error code: 2");
+                    return new StringRepresentation(jsonObject.toString());
+                }
                 Person p = ObjectifyService.ofy().load().type(Person.class).id(lID).now();
+                if(p == null) {
+                    //user not found
+                    jsonObject.addProperty("status", "ERROR");
+                    jsonObject.addProperty("reason", "Undefined person");
+                    return new StringRepresentation(jsonObject.toString());
+                }
+                jsonObject.addProperty("status", "SUCCESS");
                 jsonObject.addProperty("first_name", p.getFirstName());
                 jsonObject.addProperty("last_name", p.getLastName());
                 jsonObject.addProperty("is_tutor", Boolean.toString(p instanceof Tutor));
