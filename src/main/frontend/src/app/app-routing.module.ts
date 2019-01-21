@@ -4,7 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { StudenthomeComponent } from './studenthome/studenthome.component';
 import { TutorhomeComponent } from './tutorhome/tutorhome.component';
-import { TutorlistComponent } from './tutorlist/tutorlist.component';
 import { TutoreditorComponent } from './tutoreditor/tutoreditor.component';
 
 const routes: Routes = [
@@ -13,7 +12,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'studenthome', component: StudenthomeComponent },
   { path: 'tutorhome', component: TutorhomeComponent },
-  { path: 'tutorlist', component: TutorlistComponent },
   { path: 'tutoreditor', component: TutoreditorComponent }
 ];
 

@@ -1,3 +1,43 @@
-<p>
-  tutorhome works!
-</p>
+<div>
+    <button mat-raised-button
+        routerLink="/tutoreditor"
+        class="create-attendance"
+        color="accent">
+    <mat-icon>add</mat-icon> Add attendance
+    </button>
+    <div class="table-container">
+      <mat-table [dataSource]="attendances" class="mat-elevation-z8">
+          <!-- StudentId Column -->
+          <ng-container matColumnDef="student_id">
+              <mat-header-cell *matHeaderCellDef> Student Id </mat-header-cell>
+              <mat-cell *matCellDef="let attendance"> {{attendance.student_id}} </mat-cell>
+            </ng-container>
+          <!-- Firstname Column -->
+          <ng-container matColumnDef="first_name">
+            <mat-header-cell *matHeaderCellDef> Firstname </mat-header-cell>
+            <mat-cell *matCellDef="let attendance"> {{attendance.first_name}} </mat-cell>
+          </ng-container>
+      
+          <!-- Lastname Column -->
+          <ng-container matColumnDef="last_name">
+            <mat-header-cell *matHeaderCellDef> Lastname </mat-header-cell>
+            <mat-cell *matCellDef="let attendance"> {{attendance.last_name}} </mat-cell>
+          </ng-container>
+      
+          <!-- attendance Column -->
+          <ng-container matColumnDef="group">
+            <mat-header-cell *matHeaderCellDef> Group </mat-header-cell>
+            <mat-cell *matCellDef="let attendance"> {{attendance.group}} </mat-cell>
+          </ng-container>        
+  
+          <!-- Week Column -->
+          <ng-container matColumnDef="week_num">
+            <mat-header-cell *matHeaderCellDef> Week </mat-header-cell>
+            <mat-cell *matCellDef="let attendance"> {{attendance.week_num}} </mat-cell>
+          </ng-container>
+      
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>  
+  </div>

@@ -1,0 +1,24 @@
+table {
+    width: 100%;
+}
+
+.create-attendance {
+    margin: 16px 0 0 10px;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+mat-cell{
+    display:flex !important;
+    justify-content:center!important;
+
+}
+
+mat-header-cell {
+    display:flex;
+    justify-content:center;
+}

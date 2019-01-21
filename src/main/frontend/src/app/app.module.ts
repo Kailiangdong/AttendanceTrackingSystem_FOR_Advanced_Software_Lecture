@@ -8,10 +8,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { StudenthomeComponent,DialogOverviewExampleDialog } from './studenthome/studenthome.component';
 import { TutorhomeComponent } from './tutorhome/tutorhome.component';
-import { TutorlistComponent } from './tutorlist/tutorlist.component';
 import { TutoreditorComponent } from './tutoreditor/tutoreditor.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatTableModule,MatButtonModule, MatRadioModule,MatSelectModule,MatIconModule, MatToolbarModule, MatOptionModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
+import {MatTableModule,MatCardModule,MatButtonModule, MatRadioModule,MatSelectModule,MatIconModule, MatToolbarModule, MatOptionModule, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { QRCodeModule } from 'angularx-qrcode';
@@ -25,7 +24,6 @@ import { AlertService, AuthenticationService, UserService } from './services';
     RegisterComponent,
     StudenthomeComponent,
     TutorhomeComponent,
-    TutorlistComponent,
     TutoreditorComponent,
     DialogOverviewExampleDialog
   ],
@@ -37,6 +35,7 @@ import { AlertService, AuthenticationService, UserService } from './services';
     HttpClientModule,
     AppRoutingModule,
     MatButtonModule,
+    MatCardModule,
     MatIconModule, 
     MatFormFieldModule,
     MatInputModule,
