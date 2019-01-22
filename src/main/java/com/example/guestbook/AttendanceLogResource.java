@@ -119,9 +119,9 @@ public class AttendanceLogResource extends ServerResource {
             } else if (group.equals("all")) {
                 attendances = ObjectifyService.ofy().load().type(Attendance.class).filter("week_id", week).list();
             } else if (week.equals("all")) {
-                attendances = ObjectifyService.ofy().load().type(Attendance.class).filter("group_id", group).list();
+                attendances = ObjectifyService.ofy().load().type(Attendance.class).filter("tutorial_group_id", group).list();
             } else {
-                attendances = ObjectifyService.ofy().load().type(Attendance.class).filter("group_id", group)
+                attendances = ObjectifyService.ofy().load().type(Attendance.class).filter("tutorial_group_id", group)
                         .filter("week_id", week).list();
             }
 
