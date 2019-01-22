@@ -42,6 +42,7 @@ export class StudenthomeComponent implements OnInit{
         console.log(resp['attandance_log'])
       })
     }
+    
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',

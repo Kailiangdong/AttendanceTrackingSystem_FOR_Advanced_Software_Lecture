@@ -31,12 +31,10 @@
                 </mat-error>
             </mat-form-field>
 
-            <mat-form-field>
-                <input matInput placeholder="Presented" formControlName="presented">
-                <mat-error *ngIf="attendanceForm.get('presented').invalid">
-                    Presented is required.
-                </mat-error>
-            </mat-form-field>
+            <mat-radio-group placeholder="Presented" formControlName="presented">
+                <mat-radio-button value="true">True</mat-radio-button>
+                <mat-radio-button value="false">False</mat-radio-button>
+            </mat-radio-group>
 
             <div class="attendance-form-footer">
                 <mat-dialog-actions align="end">

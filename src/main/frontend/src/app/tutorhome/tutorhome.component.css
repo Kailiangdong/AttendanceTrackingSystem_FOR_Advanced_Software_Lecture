@@ -11,7 +11,15 @@ table {
     flex-direction: column;
     padding: 10px;
 }
-
+.filter{
+    display: flex;
+}
+.submit-button {
+    margin-left: 5px;
+}
+.space{
+    margin:30px;
+}
 mat-cell{
     display:flex !important;
     justify-content:center!important;

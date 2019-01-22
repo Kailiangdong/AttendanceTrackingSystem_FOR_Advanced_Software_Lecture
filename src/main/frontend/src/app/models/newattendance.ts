@@ -3,5 +3,5 @@ export class Newattendance {
     student_id:string;
     group:string;
     week:string;
-    presented:boolean;
+    presented:string;
 }
