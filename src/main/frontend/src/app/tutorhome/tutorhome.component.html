@@ -5,6 +5,39 @@
         color="accent">
     <mat-icon>add</mat-icon> Add attendance
     </button>
+    <div class = "space"></div>
+    <form [formGroup]="filterForm">
+      <div class="filter">
+          <label>Group:</label>
+          <mat-select class="form-control" formControlName="grouprefresh" >
+              <mat-option value="all">All</mat-option>
+              <mat-option value="1">Group1</mat-option>
+              <mat-option value="2">Group2</mat-option>
+              <mat-option value="3">Group3</mat-option>
+              <mat-option value="4">Group4</mat-option>
+              <mat-option value="5">Group5</mat-option>
+              <mat-option value="6">Group6</mat-option>
+          </mat-select>
+          <label>Week:</label>
+          <mat-select class="form-control" formControlName="weekrefresh" >
+              <mat-option value="all">All</mat-option>
+              <mat-option value="1">1</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="3">3</mat-option>
+              <mat-option value="4">4</mat-option>
+              <mat-option value="5">5</mat-option>
+              <mat-option value="6">6</mat-option>
+              <mat-option value="7">7</mat-option>
+              <mat-option value="8">8</mat-option>
+              <mat-option value="9">9</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="11">11</mat-option>
+              <mat-option value="12">12</mat-option>
+          </mat-select>
+          <button mat-raised-button color="accent" class="submit-button" (click)="onRefresh()">Refresh</button>
+      </div>
+    </form>
+    <div class = "space"></div>
     <div class="table-container">
       <mat-table [dataSource]="attendances" class="mat-elevation-z8">
           <!-- StudentId Column -->

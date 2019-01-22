@@ -23,7 +23,7 @@ export class TutoreditorComponent implements OnInit {
         student_id: '',
         group: '',
         week: '',
-        presented: false
+        presented: 'true'
     };
   };
 

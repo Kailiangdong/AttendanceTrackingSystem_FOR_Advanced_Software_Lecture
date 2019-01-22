@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services';
 import { Attendance } from '../models';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-tutorhome',
   templateUrl: './tutorhome.component.html',
@@ -23,15 +25,26 @@ export class TutorhomeComponent implements OnInit {
       'group',
       'week_num'
   ];
+  filterForm = new FormGroup({
+    grouprefresh: new FormControl('all'),
+    weekrefresh: new FormControl('all'),
+  });
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getListFromTutor("all","all").subscribe(
+    this.userService.getListFromTutor(this.filterForm.value)
+    .subscribe(
       resp => {
         console.log(resp)
         this.attendances = resp['attandance_log']
         console.log(resp['attandance_log'])
       })
     }
-
+  onRefresh() {
+    this.userService.getListFromTutor(this.filterForm.value)
+    .subscribe(
+      resp => {
+        this.attendances = resp['attandance_log']
+      })
+    }
 }
