@@ -1,6 +1,8 @@
 package com.example.guestbook;
 
+import java.util.List;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 import com.google.gson.JsonObject;
 import com.google.common.hash.Hashing;
@@ -17,12 +19,9 @@ import org.restlet.util.Series;
 
 public class LoginResource extends ServerResource {
     /**
-     * site: /rest/login
-     * Interface for login, using POST method
-     * need Cookies
+     * site: /rest/login Interface for login, using POST method need Cookies
      * 
-     * Validate user state via Cookies
-     * Validate request elements(email, password)
+     * Validate user state via Cookies Validate request elements(email, password)
      * set Cookies
      * 
      * @param entity request input
@@ -36,30 +35,49 @@ public class LoginResource extends ServerResource {
         // Check if user allready logged in
         if (cookie != null) {
             if (cookie.getValue() != null && !cookie.getValue().equals("")) {
-                // TODO: check if session is expired       
-                String id = cookie.getValue();
-                jsonObject.addProperty("id", id);
-                Long lID;
+                // check if session is expired
+                Date now = new Date();
+                List<Session> expired_sessions = ObjectifyService.ofy().load().type(Session.class)
+                        .filter("expired_data <", now).list();
+                ObjectifyService.ofy().delete().entities(expired_sessions).now();
+                String session_id = cookie.getValue();
+                Long lSession;
                 try {
-                    lID = Long.parseLong(id);
+                    lSession = Long.parseLong(session_id);
                 } catch (NumberFormatException e) {
+                    // handle exception
                     jsonObject.addProperty("status", "ERROR");
-                    jsonObject.addProperty("reason", "Please contact to developer, Error code: 2");
+                    jsonObject.addProperty("reason", "Error in cookie, please contact to developer");
                     return new StringRepresentation(jsonObject.toString());
                 }
-                Person p = ObjectifyService.ofy().load().type(Person.class).id(lID).now();
-                if(p == null) {
-                    //user not found
-                    jsonObject.addProperty("status", "ERROR");
-                    jsonObject.addProperty("reason", "Undefined person");
+
+                Session session = ObjectifyService.ofy().load().type(Session.class).id(lSession).now();
+                if (session != null) {
+                    String id = session.getStudent_id();
+
+                    Long lID;
+                    try {
+                        lID = Long.parseLong(id);
+                    } catch (NumberFormatException e) {
+                        jsonObject.addProperty("status", "ERROR");
+                        jsonObject.addProperty("reason", "Please contact to developer, Error code: " + session_id);
+                        return new StringRepresentation(jsonObject.toString());
+                    }
+                    Person p = ObjectifyService.ofy().load().type(Person.class).id(lID).now();
+                    if (p == null) {
+                        // user not found
+                        jsonObject.addProperty("status", "ERROR");
+                        jsonObject.addProperty("reason", "Undefined person");
+                        return new StringRepresentation(jsonObject.toString());
+                    }
+                    jsonObject.addProperty("status", "SUCCESS");
+                    jsonObject.addProperty("first_name", p.getFirstName());
+                    jsonObject.addProperty("last_name", p.getLastName());
+                    jsonObject.addProperty("is_tutor", Boolean.toString(p instanceof Tutor));
+                    jsonObject.addProperty("reason", "You have already logged in");
                     return new StringRepresentation(jsonObject.toString());
                 }
-                jsonObject.addProperty("status", "SUCCESS");
-                jsonObject.addProperty("first_name", p.getFirstName());
-                jsonObject.addProperty("last_name", p.getLastName());
-                jsonObject.addProperty("is_tutor", Boolean.toString(p instanceof Tutor));
-                jsonObject.addProperty("reason", "You have already logged in");
-                return new StringRepresentation(jsonObject.toString());
+
             }
         }
 
@@ -89,11 +107,13 @@ public class LoginResource extends ServerResource {
 
         // validate login
         if (p != null && p.validatePwd(saltedPwd)) {
-            // TODO: add session to database
-            CookieSetting cS = new CookieSetting(0, "sessionID", p.getId());
-            CookieSetting cS2 = new CookieSetting(0, "Path", "/");
+            // add session to database
+            Session session = new Session(p.getId());
+            ObjectifyService.ofy().save().entity(session).now();
+            CookieSetting cS = new CookieSetting(0, "sessionID", session.getId());
+            // CookieSetting cS2 = new CookieSetting(0, "Path", "/");
             this.getResponse().getCookieSettings().add(cS);
-            this.getResponse().getCookieSettings().add(cS2);
+            // this.getResponse().getCookieSettings().add(cS2);
             jsonObject.addProperty("status", "SUCCESS");
             jsonObject.addProperty("id", p.getId());
             jsonObject.addProperty("first_name", p.getFirstName());

@@ -1,6 +1,10 @@
 package com.example.guestbook;
 
+import java.util.Date;
+import java.util.List;
+
 import com.google.gson.JsonObject;
+import com.googlecode.objectify.ObjectifyService;
 
 import org.restlet.data.Cookie;
 import org.restlet.data.CookieSetting;
@@ -13,11 +17,10 @@ import org.restlet.util.Series;
 
 public class LogoutResource extends ServerResource {
     /**
-     * site: /rest/logout
-     * Interface for logout, using GET method
+     * site: /rest/logout Interface for logout, using GET method
      * 
-     * Validate user state via Cookies
-     * redirect user to home page
+     * Validate user state via Cookies redirect user to home page
+     * 
      * @param entity request input
      * @return null
      */
@@ -28,8 +31,22 @@ public class LogoutResource extends ServerResource {
         Cookie cookie = cookies.getFirst("sessionID");
 
         if (cookie != null) {
-            if (cookie.getValue() != null && cookie.getValue() != "") {
-                // TODO: if session expired
+            if (cookie.getValue() != null && !cookie.getValue().equals("")) {
+                // delete session from session pool
+                Date now = new Date();
+                List<Session> expired_sessions = ObjectifyService.ofy().load().type(Session.class)
+                        .filter("expired_data <", now).list();
+                ObjectifyService.ofy().delete().entities(expired_sessions).now();
+                String session_id = cookie.getValue();
+                Long lSession;
+                try {
+                    lSession = Long.parseLong(session_id);
+                    Session session = ObjectifyService.ofy().load().type(Session.class).id(lSession).now();
+                    if (session != null)
+                        ObjectifyService.ofy().delete().entity(session).now();
+                } catch (NumberFormatException e) {
+                    // handle exception
+                }
             }
         }
 
@@ -40,8 +57,7 @@ public class LogoutResource extends ServerResource {
     }
 
     /**
-     * site: /rest/logout
-     * Interface for logout, using POST method
+     * site: /rest/logout Interface for logout, using POST method
      * 
      * Validate user state via Cookies
      * 
@@ -55,8 +71,26 @@ public class LogoutResource extends ServerResource {
         Cookie cookie = cookies.getFirst("sessionID");
 
         if (cookie != null) {
-            if (cookie.getValue() != null && cookie.getValue() != "") {
-                // TODO: if session expired
+            if (cookie.getValue() != null && !cookie.getValue().equals("")) {
+                // delete session from session pool
+                Date now = new Date();
+                List<Session> expired_sessions = ObjectifyService.ofy().load().type(Session.class)
+                        .filter("expired_data <", now).list();
+                ObjectifyService.ofy().delete().entities(expired_sessions).now();
+                String session_id = cookie.getValue();
+                Long lSession;
+                try {
+                    lSession = Long.parseLong(session_id);
+                } catch (NumberFormatException e) {
+                    // handle exception
+                    jsonObject.addProperty("status", "ERROR");
+                    jsonObject.addProperty("reason", "Error in cookie, please contact to developer");
+                    return new StringRepresentation(jsonObject.toString());
+                }
+
+                Session session = ObjectifyService.ofy().load().type(Session.class).id(lSession).now();
+                if (session != null)
+                    ObjectifyService.ofy().delete().entity(session).now();
             }
         }
 

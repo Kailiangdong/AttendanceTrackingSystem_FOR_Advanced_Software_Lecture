@@ -34,14 +34,15 @@ public class OfyHelper implements ServletContextListener {
     // request.
     // Initialization required for objectify version >= 6.0
     // for WEBSERVER
-    ObjectifyService.init();
+    // ObjectifyService.init();
     // for LOCAL SERVER
-    // ObjectifyService.init(new ObjectifyFactory(DatastoreOptions.newBuilder().setHost("http://localhost:8081")
-    //     .setProjectId("my-project").build().getService()));
+    ObjectifyService.init(new ObjectifyFactory(DatastoreOptions.newBuilder().setHost("http://localhost:8081")
+        .setProjectId("my-project").build().getService()));
     ObjectifyService.register(Person.class);
     ObjectifyService.register(Tutor.class);
     ObjectifyService.register(Attendance.class);
     ObjectifyService.register(Student.class);
+    ObjectifyService.register(Session.class);
     // ObjectifyService.register(Greeting.class);
   }
 

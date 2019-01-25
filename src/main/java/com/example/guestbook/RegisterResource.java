@@ -66,7 +66,15 @@ public class RegisterResource extends ServerResource {
 
         // validate group number
         String groupNameStr = form.getFirstValue("group_name");
-        int groupName = Integer.parseInt(groupNameStr);
+        int groupName;
+        try {
+            groupName = Integer.parseInt(groupNameStr);
+        } catch (Exception e) {
+            // handle exception
+            jsonObject.addProperty("status", "ERROR");
+            jsonObject.addProperty("reason", "Invalid group name");
+            return new StringRepresentation(jsonObject.toString());
+        }
         if (groupName < 1 || groupName > 6) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Invalid group number");

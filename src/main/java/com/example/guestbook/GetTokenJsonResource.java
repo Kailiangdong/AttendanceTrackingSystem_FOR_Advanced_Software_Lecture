@@ -1,5 +1,8 @@
 package com.example.guestbook;
 
+import java.util.Date;
+import java.util.List;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.googlecode.objectify.ObjectifyService;
@@ -31,7 +34,7 @@ public class GetTokenJsonResource extends ServerResource {
         Series<Cookie> cookies = this.getRequest().getCookies();
         Cookie cookie = cookies.getFirst("sessionID");
         String id;
-        if (cookie == null || cookie.getValue() == null) {
+        if (cookie == null || cookie.getValue() == null || cookie.getValue().equals("")) {
             // User is not logged in
             Form form = new Form(entity); // only for debug
             id = form.getFirstValue("student_id"); // only for debug
@@ -41,7 +44,29 @@ public class GetTokenJsonResource extends ServerResource {
                 return new StringRepresentation(jsonObject.toString());
             }
         } else {
-            id = cookie.getValue();
+            // get student id from session
+            Date now = new Date();
+            List<Session> expired_sessions = ObjectifyService.ofy().load().type(Session.class)
+                    .filter("expired_data <", now).list();
+            ObjectifyService.ofy().delete().entities(expired_sessions).now();
+            String session_id = cookie.getValue();
+            Long lSession;
+            try {
+                lSession = Long.parseLong(session_id);
+            } catch (NumberFormatException e) {
+                // handle exception
+                jsonObject.addProperty("status", "ERROR");
+                jsonObject.addProperty("reason", "Error in cookie, please contact to developer");
+                return new StringRepresentation(jsonObject.toString());
+            }
+
+            Session session = ObjectifyService.ofy().load().type(Session.class).id(lSession).now();
+            if(session == null){
+                jsonObject.addProperty("status", "ERROR");
+                jsonObject.addProperty("reason", "Session expired, please login again");
+                return new StringRepresentation(jsonObject.toString());
+            }
+            id = session.getStudent_id();
         }
 
         Long lID = Long.parseLong(id);
@@ -56,6 +81,7 @@ public class GetTokenJsonResource extends ServerResource {
                 jsonArray.add(jsonObject2);
             }
             jsonObject.addProperty("status", "SUCCESS");
+            jsonObject.addProperty("student_id", id);
             jsonObject.add("token", jsonArray);
         } else {
             jsonObject.addProperty("status", "ERROR");
