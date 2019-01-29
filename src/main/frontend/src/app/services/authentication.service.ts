@@ -22,7 +22,7 @@ export class AuthenticationService {
         return this.http.post(`/rest/logout`,null)
     }
     register(register:Register){
-        let text = "first_name="+register.firstName+"&last_name="+register.lastName+"&email="+register.email+"&password="+register.password+"&group="+register.group+"&is_tutor=false"
+        let text = "first_name="+register.firstName+"&last_name="+register.lastName+"&email="+register.email+"&password="+register.password+"&group_name="+register.group+"&is_tutor=false"
         console.log(text)
         return this.http.post(`/rest/register`, text)
     }

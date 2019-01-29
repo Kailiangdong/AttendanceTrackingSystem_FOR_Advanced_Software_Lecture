@@ -14,8 +14,17 @@ table {
 .filter{
     display: flex;
 }
+.mat-column-student_id {
+    flex: 0 0 180px;
+  }
 .submit-button {
     margin-left: 5px;
+    margin-left: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    width: 20em;  height: 3em;
 }
 .space{
     margin:30px;

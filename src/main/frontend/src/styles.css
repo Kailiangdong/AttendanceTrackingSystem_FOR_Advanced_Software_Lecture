@@ -134,11 +134,6 @@
     justify-content: space-between;
 }
 
-/*Progress Bar ############################################*/
-.progressbar{
-
-}
-
 /*Controls section everything left from the Canvas #########*/
 .sidenav{
     z-index: 5;

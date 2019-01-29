@@ -47,4 +47,4 @@ export class TutorhomeComponent implements OnInit {
         this.attendances = resp['attandance_log']
       })
     }
-}
+  }

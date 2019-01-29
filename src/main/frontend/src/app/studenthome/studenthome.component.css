@@ -2,17 +2,34 @@ table {
     width: 100%;
 }
 
-
 .table-container {
     display: flex;
     flex-direction: column;
     padding: 10px;
 }
-
+.filter{
+    display: flex;
+}
+.submit-button {
+    margin-left: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    width: 20em;  height: 3em;
+}
+.font{
+    font-family:"sans-serif"
+}
+.space{
+    margin:30px;
+}
+.week{
+    margin-right: 5px;
+}
 mat-cell{
     display:flex !important;
     justify-content:center!important;
-
 }
 
 mat-header-cell {
