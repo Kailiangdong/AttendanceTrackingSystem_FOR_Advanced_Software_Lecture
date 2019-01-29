@@ -57,7 +57,6 @@ public class FirstStepsApplication extends Application {
         router.attach("/attendance/post/xml", ReadTokenXmlResource.class);
         router.attach("/validate", ValidateResource.class);
         router.attach("/message", MessageResource.class);
-        router.attach("/claim", ClaimResource.class);
 
         // work with restlet
         // https://restlet.com/open-source/documentation/user-guide/2.3/core/routing/hierarchical-uris
