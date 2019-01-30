@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance System</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+
+    <link rel="stylesheet" href="stylesheets/style.css" />
+
+    <script src="scripts/script.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+</head>
+
+<body>
+    <div>
+        Enter your attendance id:
+        <input type="text" placeholder="attendance id: " maxlength="10" id="attendance_text">
+    </div>
+    <div>
+        Enter your student id:
+        <input type="text" placeholder="student id: " maxlength="7" id="student_text">
+    </div>
+    <div>
+        <div class="custom-select" style="width:200px;">
+            Select your tutorial group:
+            <select id="select-group">
+                <option value="0">Select tutorial group:</option>
+                <option value="1">Group 1</option>
+                <option value="2">Group 2</option>
+                <option value="3">Group 3</option>
+                <option value="4">Group 4</option>
+                <option value="5">Group 5</option>
+                <option value="6">Group 6</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <div class="custom-select" style="width:200px;">
+            Select current week:
+            <select id="select-week" >
+                <option value="0">Select week:</option>
+                <option value="1">Week 1</option>
+                <option value="2">Week 2</option>
+                <option value="3">Week 3</option>
+                <option value="4">Week 4</option>
+                <option value="5">Week 5</option>
+                <option value="6">Week 6</option>
+                <option value="7">Week 7</option>
+                <option value="8">Week 8</option>
+                <option value="9">Week 9</option>
+                <option value="10">Week 10</option>
+                <option value="11">Week 11</option>
+            </select>
+        </div>
+    </div>
+
+    Presented:
+    <label class="switch">
+        <input type="checkbox" id="presented">
+        <span class="slider round"></span>
+    </label>
+
+    <div>
+        <button onclick="sendRequest()">submit</button>
+        <span id="result">not Presented</span>
+    </div>
+    
+</body>
+
+</html>

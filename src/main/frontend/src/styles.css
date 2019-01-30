@@ -1,0 +1,223 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/*General styles  #########################################*/
+* {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.body{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.blogx-transparent-dialog .mat-dialog-container {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0 0 0 0;
+}
+
+/*Pages ###################################################*/
+.pageBody{
+    height: 100vh;
+    min-height: 320px;
+    width: 100vw;
+    min-width: 200px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/*Menu Toolbar ############################################*/
+.toolbarspacer{
+    flex: 1 1 auto;
+    /*border: solid 1px violet;*/
+}
+.menubanner{
+    cursor: pointer;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    /*border: solid 1px red;*/
+}
+.menubannericon{
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
+    /*border: solid 1px red;*/
+}
+.menubannericon:hover{
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    transition: all 0.3s ease-in-out 0s;
+}
+.menutoolbar{
+    min-width: 120px;
+    flex: 1 1 auto;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /*border: solid 1px yellow;*/
+}
+.toolmenu{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*border: solid 1px grey;*/
+}
+.toolbarcheckbox{
+    left: -20px;
+}
+.toolmenubutton{
+    width: 30px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*border: solid 1px red;*/
+}
+.toolbarbutton{
+    height: 40px;
+    min-width: 120px;
+    font-size: 14px;
+    font-weight: 100;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    /*border: solid 1px red;*/
+}
+.menuinput{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.menuextra:hover{
+    background-color: rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+.menutext{
+    font-weight: normal;
+}
+.menuitem{
+    color: #3B3B3B;
+    font-weight: normal;
+}
+.login-banner{
+    min-width: 50px;
+    max-width: 150px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/*Controls section everything left from the Canvas #########*/
+.sidenav{
+    z-index: 5;
+    flex: 1 1 auto;
+    height: 90vh;
+    width: 100vw;
+}
+.controlssection{
+    height: 100%;
+    width: 55px;
+    min-height: 230px;
+    padding: 0 5px 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.notificationcontainer{
+    height: 30%;
+    width: 100%;
+    min-width: 40px;
+    min-height: 130px;
+}
+
+.sidenavopen{
+    width: 40px;
+    height: 40px;
+    margin: 15px 0 15px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /* border-radius: 10px; */
+    background-color: #FFFFFF;
+    color: #3B3B3B;
+    border: none;
+    box-shadow: 1px 1px 1px grey;
+  }
+
+/*Layouts #################################################*/
+
+
+
+/*Other ###################################################*/
+
+.main-flex10px{
+    width: 100%;
+    min-height: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.main-flex50px{
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.main-left50px{
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.auth-container {
+    width: 80%;
+    margin: 1rem auto;
+}
+
+.login-container, .signup-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.table-container {
+    padding: 30px;
+}
