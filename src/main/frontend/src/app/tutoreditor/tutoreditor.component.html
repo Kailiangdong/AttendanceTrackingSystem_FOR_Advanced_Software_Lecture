@@ -1,3 +1,53 @@
-<p>
-  tutoreditor works!
-</p>
+<form [formGroup]="attendanceForm">
+    <div class="attendance-form-container">
+        <mat-card>
+            <mat-card-title class="attendance-form-title">Attendance Editor</mat-card-title>
+
+            <mat-form-field>
+                <input matInput placeholder="Token" formControlName="token">
+                <mat-error *ngIf="attendanceForm.get('token').invalid">
+                    token is required.
+                </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <input matInput placeholder="Student Id" formControlName="student_id">
+                <mat-error *ngIf="attendanceForm.get('student_id').invalid">
+                    student_id is required.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Group" formControlName="group">
+                <mat-error *ngIf="attendanceForm.get('group').invalid">
+                    group is required.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Week" formControlName="week">
+                <mat-error *ngIf="attendanceForm.get('week').invalid">
+                    week is required.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-radio-group placeholder="Presented" formControlName="presented">
+                <mat-radio-button value="true">True</mat-radio-button>
+                <mat-radio-button value="false">False</mat-radio-button>
+            </mat-radio-group>
+
+            <div class="attendance-form-footer">
+                <mat-dialog-actions align="end">
+                    <button mat-raised-button
+                            color="accent"
+                            class="submit-button"
+                            (click)="onSubmit()"
+                            [disabled]="!attendanceForm.valid || !attendanceForm.dirty">
+                        Save Changes
+                    </button>
+                    <button class="mat-raised-button" (click)="goBack()">Cancel</button>
+                </mat-dialog-actions>
+            </div>
+        </mat-card>
+    </div>
+</form>

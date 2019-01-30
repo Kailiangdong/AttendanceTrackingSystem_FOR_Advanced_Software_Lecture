@@ -38,13 +38,13 @@ public class MessageResource extends ServerResource{
         }
         
 
-        Student s = ObjectifyService.ofy().load().type(Student.class).id(slID).now();
-        if (s == null) {
+        Person s = ObjectifyService.ofy().load().type(Student.class).id(slID).now();
+        if (s == null || s instanceof Tutor) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Student does not exist");
             return new StringRepresentation(jsonObject.toString());
         }
-        int group = s.getGroup();
+        int group = ((Student)s).getGroup();
         // List<Attendance> attendances = ObjectifyService.ofy().load().type(Attendance.class).filter("tutorial_group_id", "" + group).filter("date >", date).list();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date dDate;

@@ -33,16 +33,22 @@ public class ReadTokenJsonResource extends ServerResource{
             return new StringRepresentation(jsonObject.toString());
         }
 
-        Student s = ObjectifyService.ofy().load().type(Student.class).id(slID).now();
+        Person s = ObjectifyService.ofy().load().type(Student.class).id(slID).now();
         if (s == null) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Student does not exist");
             return new StringRepresentation(jsonObject.toString());
         }
 
+        if(s instanceof Tutor){
+            jsonObject.addProperty("status", "ERROR");
+            jsonObject.addProperty("reason", "You are not a student");
+            return new StringRepresentation(jsonObject.toString());
+        }
+
         try {
             int iGroup = Integer.parseInt(group);
-            if (iGroup < 1 || iGroup > 6 || iGroup != s.getGroup()) {
+            if (iGroup < 1 || iGroup > 6 || iGroup != ((Student)s).getGroup()) {
                 jsonObject.addProperty("status", "ERROR");
                 jsonObject.addProperty("reason", "Invalid group number");
                 return new StringRepresentation(jsonObject.toString());
@@ -66,7 +72,7 @@ public class ReadTokenJsonResource extends ServerResource{
             jsonObject.addProperty("reason", "Invalid week number");
             return new StringRepresentation(jsonObject.toString());
         }
-        if (!s.validateToken(token, iWeek)) {
+        if (!((Student)s).validateToken(token, iWeek)) {
             jsonObject.addProperty("status", "ERROR");
             jsonObject.addProperty("reason", "Invalid token");
             return new StringRepresentation(jsonObject.toString());

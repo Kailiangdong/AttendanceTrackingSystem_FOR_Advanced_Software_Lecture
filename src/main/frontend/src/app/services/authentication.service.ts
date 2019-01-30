@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Register } from'../models';
 const tmp = {
     "status" : "SUCCESS",
     "id" : "1234567891011",
@@ -20,4 +21,10 @@ export class AuthenticationService {
     logout() {
         return this.http.post(`/rest/logout`,null)
     }
+    register(register:Register){
+        let text = "first_name="+register.firstName+"&last_name="+register.lastName+"&email="+register.email+"&password="+register.password+"&group_name="+register.group+"&is_tutor=false"
+        console.log(text)
+        return this.http.post(`/rest/register`, text)
+    }
+
 }

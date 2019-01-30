@@ -2,8 +2,10 @@ import { Component, OnInit ,Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { UserService } from '../services';
 import { Attendance } from '../models';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 export interface DialogData {
-  name: string;
+  week: string;
 }
 
 /**
@@ -15,7 +17,9 @@ export interface DialogData {
   styleUrls: ['./studenthome.component.css']
 })
 export class StudenthomeComponent implements OnInit{
-  
+  filterForm = new FormGroup({
+    weekrefresh: new FormControl(''),
+  });
   // list of attendance that will be displayed in the table
   attendances : Attendance[] = [];
   // list of users that will be displayed in the table
@@ -30,22 +34,18 @@ export class StudenthomeComponent implements OnInit{
       'group',
       'week_num'
   ];
-
-  name: string;
   constructor(public dialog: MatDialog,private userService: UserService) {}
   ngOnInit(): void {
-    console.log("print it ")
     this.userService.getListFromStudent().subscribe(
       resp => {
-        console.log(resp)
         this.attendances = resp['attandance_log']
-        console.log(resp['attandance_log'])
       })
     }
+    
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
-      data: {name: this.name}
+      data: {week: this.filterForm.value}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -67,8 +67,14 @@ export class DialogOverviewExampleDialog {
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
       this.userService.qrcode().subscribe(
         resp => {
-           this.myAngularxQrCode = JSON.stringify(resp)
+           const object = resp['token']
+           for(let i = 0; i < object.length; i++) {
+             let obj = object[i];
+             if (obj.week ==data.week['weekrefresh']){
+               this.myAngularxQrCode = obj.token
+             }
           }
+        }
         )
     }
   onNoClick(): void {

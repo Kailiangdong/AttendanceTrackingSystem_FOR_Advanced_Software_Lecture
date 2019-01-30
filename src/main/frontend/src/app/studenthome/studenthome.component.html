@@ -1,7 +1,27 @@
 <div>
-  <div>
-      <button mat-raised-button (click)="openDialog()">Generate Qr code</button>
+  <div class = "space"></div>
+  <div [formGroup]="filterForm">
+      <div class="filter">
+          <label class="week">Week:</label>
+          <mat-select class="form-control" formControlName="weekrefresh" >
+              <mat-option value="1">1</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="3">3</mat-option>
+              <mat-option value="4">4</mat-option>
+              <mat-option value="5">5</mat-option>
+              <mat-option value="6">6</mat-option>
+              <mat-option value="7">7</mat-option>
+              <mat-option value="8">8</mat-option>
+              <mat-option value="9">9</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="11">11</mat-option>
+              <mat-option value="12">12</mat-option>
+          </mat-select>
+          <button mat-raised-button color="accent" class="submit-button" (click)="openDialog()">Generate Qr code</button>
+      </div>
   </div>
+  <div class = "space"></div>
+      <h2 class="font">Your attendance log</h2>
   <div class="table-container">
     <mat-table [dataSource]="attendances" class="mat-elevation-z8">
     
