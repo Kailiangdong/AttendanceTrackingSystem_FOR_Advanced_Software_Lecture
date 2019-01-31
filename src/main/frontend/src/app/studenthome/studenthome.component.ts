@@ -71,7 +71,7 @@ export class DialogOverviewExampleDialog {
            for(let i = 0; i < object.length; i++) {
              let obj = object[i];
              if (obj.week ==data.week['weekrefresh']){
-               this.myAngularxQrCode = obj.token
+               this.myAngularxQrCode = "id="+resp['student_id'] +" token="+obj.token
              }
           }
         }
