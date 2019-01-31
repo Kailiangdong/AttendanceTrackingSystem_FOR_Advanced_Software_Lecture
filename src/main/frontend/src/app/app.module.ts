@@ -15,6 +15,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AlertService, AuthenticationService, UserService } from './services';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { AlertService, AuthenticationService, UserService } from './services';
     AlertService,
     AuthenticationService,
     UserService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
   bootstrap: [AppComponent]
